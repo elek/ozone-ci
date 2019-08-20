@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190820 16:47:33.539" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop31-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190820 16:47:33.599" level="INFO">${random} = 64535</msg>
+<status status="PASS" endtime="20190820 16:47:33.599" starttime="20190820 16:47:33.598"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 16:47:33.600" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-64535 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 16:47:35.218" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190820 16:47:35.218" level="INFO">${output} = 2019-08-20 16:47:34 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 16:47:34 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 16:47:35 ERROR OzoneClientFactory:294 - Could...</msg>
+<status status="PASS" endtime="20190820 16:47:35.219" starttime="20190820 16:47:33.599"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 16:47:35.220" level="INFO">2019-08-20 16:47:34 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 16:47:34 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 16:47:35 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:103)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:144)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:325)
+	at org.apache.hadoop.fs.shell.CommandWithDestination.getRemoteDestination(CommandWithDestination.java:195)
+	at org.apache.hadoop.fs.shell.CopyCommands$Put.processOptions(CopyCommands.java:259)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:175)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:328)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:90)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:391)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:445)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:190)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 24 more
+Caused by: java.net.UnknownHostException: om
+	... 30 more
+put: Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190820 16:47:35.220" starttime="20190820 16:47:35.219"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 16:47:35.221" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190820 16:47:35.222" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190820 16:47:35.222" starttime="20190820 16:47:35.221"></status>
+</kw>
+<status status="FAIL" endtime="20190820 16:47:35.223" starttime="20190820 16:47:33.599"></status>
+</kw>
+<status status="FAIL" endtime="20190820 16:47:35.223" critical="yes" starttime="20190820 16:47:33.597">1 != 0</status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="FAIL" endtime="20190820 16:47:35.225" starttime="20190820 16:47:33.541"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="hadoop31-hadoopo3fs" pass="0">hadoop31-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
