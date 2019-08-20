@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190820 14:29:19.672" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop31-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190820 14:29:19.729" level="INFO">${random} = 53502</msg>
+<status status="PASS" endtime="20190820 14:29:19.729" starttime="20190820 14:29:19.729"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 14:29:19.731" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-53502 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 14:29:24.956" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190820 14:29:24.956" level="INFO">${output} = 2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:22 INFO  Configuration:3318 - Removed u...</msg>
+<status status="PASS" endtime="20190820 14:29:24.956" starttime="20190820 14:29:19.730"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 14:29:24.957" level="INFO">2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:22 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:22 INFO  FluentPropertyBeanIntrospector:147 - Error when creating PropertyDescriptor for public final void org.apache.commons.configuration2.AbstractConfiguration.setProperty(java.lang.String,java.lang.Object)! Ignoring this property.
+2019-08-20 14:29:22 INFO  MetricsConfig:121 - loaded properties from hadoop-metrics2.properties
+2019-08-20 14:29:22 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019-08-20 14:29:22 INFO  MetricsSystemImpl:191 - XceiverClientMetrics metrics system started
+2019-08-20 14:29:24 INFO  GrpcClientProtocolClient:255 - client-4F04F36E5462-&gt;f86de9fd-f018-427b-b93a-5361f5175493: receive RaftClientReply:client-4F04F36E5462-&gt;f86de9fd-f018-427b-b93a-5361f5175493@group-AC6F0499A798, cid=0, SUCCESS, logIndex=1, commits[f86de9fd-f018-427b-b93a-5361f5175493:c2]
+2019-08-20 14:29:24 INFO  GrpcClientProtocolClient:255 - client-4F04F36E5462-&gt;f86de9fd-f018-427b-b93a-5361f5175493: receive RaftClientReply:client-4F04F36E5462-&gt;f86de9fd-f018-427b-b93a-5361f5175493@group-AC6F0499A798, cid=1, SUCCESS, logIndex=3, commits[f86de9fd-f018-427b-b93a-5361f5175493:c4]
+2019-08-20 14:29:24 INFO  Configuration:3318 - Removed undeclared tags:</msg>
+<status status="PASS" endtime="20190820 14:29:24.957" starttime="20190820 14:29:24.957"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 14:29:24.958" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190820 14:29:24.958" starttime="20190820 14:29:24.957"></status>
+</kw>
+<msg timestamp="20190820 14:29:24.958" level="INFO">${result} = 2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:20 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:22 INFO  Configuration:3318 - Removed u...</msg>
+<status status="PASS" endtime="20190820 14:29:24.958" starttime="20190820 14:29:19.730"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -ls o3fs://bucket1.vol1/</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 14:29:24.960" level="INFO">Running command 'hdfs dfs -ls o3fs://bucket1.vol1/ 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 14:29:27.565" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190820 14:29:27.565" level="INFO">${output} = 2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:27 INFO  Configuration:3318 - Removed u...</msg>
+<status status="PASS" endtime="20190820 14:29:27.565" starttime="20190820 14:29:24.959"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 14:29:27.566" level="INFO">2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:27 INFO  Configuration:3318 - Removed undeclared tags:
+Found 3 items
+-rw-rw-rw-   1 hadoop hadoop    1159555 2019-08-20 14:29 o3fs://bucket1.vol1/key1
+-rw-rw-rw-   1 hadoop hadoop      21867 1970-03-05 18:38 o3fs://bucket1.vol1/ozone-53502
+drwxrwxrwx   - hadoop hadoop          0 2019-08-20 14:29 o3fs://bucket1.vol1/user
+2019-08-20 14:29:27 INFO  Configuration:3318 - Removed undeclared tags:</msg>
+<status status="PASS" endtime="20190820 14:29:27.567" starttime="20190820 14:29:27.566"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 14:29:27.567" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190820 14:29:27.568" starttime="20190820 14:29:27.567"></status>
+</kw>
+<msg timestamp="20190820 14:29:27.568" level="INFO">${result} = 2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:26 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-20 14:29:27 INFO  Configuration:3318 - Removed u...</msg>
+<status status="PASS" endtime="20190820 14:29:27.568" starttime="20190820 14:29:24.958"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${PREFIX}-${random}</arg>
+</arguments>
+<status status="PASS" endtime="20190820 14:29:27.569" starttime="20190820 14:29:27.569"></status>
+</kw>
+<status status="PASS" endtime="20190820 14:29:27.570" critical="yes" starttime="20190820 14:29:19.728"></status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="PASS" endtime="20190820 14:29:27.571" starttime="20190820 14:29:19.674"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="hadoop31-hadoopo3fs" pass="1">hadoop31-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
