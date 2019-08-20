@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190820 18:01:55.841" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/kinit.robot" id="s1" name="ozonesecure-kinit">
+<test id="s1-t1" name="Kinit">
+<kw name="Kinit test user" library="commonlib">
+<arguments>
+<arg>testuser</arg>
+<arg>testuser.keytab</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hostname</arg>
+</arguments>
+<assign>
+<var>${hostname}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 18:01:55.898" level="INFO">Running command 'hostname 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 18:01:55.906" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190820 18:01:55.906" level="INFO">${output} = scm</msg>
+<status status="PASS" endtime="20190820 18:01:55.907" starttime="20190820 18:01:55.897"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 18:01:55.909" level="INFO">scm</msg>
+<status status="PASS" endtime="20190820 18:01:55.909" starttime="20190820 18:01:55.907"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 18:01:55.910" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190820 18:01:55.910" starttime="20190820 18:01:55.909"></status>
+</kw>
+<msg timestamp="20190820 18:01:55.911" level="INFO">${hostname} = scm</msg>
+<status status="PASS" endtime="20190820 18:01:55.911" starttime="20190820 18:01:55.896"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${TEST_USER}</arg>
+<arg>${user}/${hostname}@EXAMPLE.COM</arg>
+</arguments>
+<msg timestamp="20190820 18:01:55.914" level="INFO">${TEST_USER} = testuser/scm@EXAMPLE.COM</msg>
+<status status="PASS" endtime="20190820 18:01:55.914" starttime="20190820 18:01:55.911"></status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>2min</arg>
+<arg>10sec</arg>
+<arg>Execute</arg>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 18:01:55.919" level="INFO">Running command 'kinit -k testuser/scm@EXAMPLE.COM -t /etc/security/keytabs/testuser.keytab 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 18:01:55.938" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190820 18:01:55.938" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190820 18:01:55.938" starttime="20190820 18:01:55.917"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 18:01:55.940" level="INFO"></msg>
+<status status="PASS" endtime="20190820 18:01:55.940" starttime="20190820 18:01:55.939"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 18:01:55.941" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190820 18:01:55.942" starttime="20190820 18:01:55.941"></status>
+</kw>
+<status status="PASS" endtime="20190820 18:01:55.942" starttime="20190820 18:01:55.915"></status>
+</kw>
+<status status="PASS" endtime="20190820 18:01:55.942" starttime="20190820 18:01:55.915"></status>
+</kw>
+<status status="PASS" endtime="20190820 18:01:55.943" starttime="20190820 18:01:55.896"></status>
+</kw>
+<timeout value="2 minutes"></timeout>
+<status status="PASS" endtime="20190820 18:01:55.943" critical="yes" starttime="20190820 18:01:55.895"></status>
+</test>
+<doc>Kinit test user</doc>
+<status status="PASS" endtime="20190820 18:01:55.944" starttime="20190820 18:01:55.842"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="ozonesecure-kinit" pass="1">ozonesecure-kinit</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
