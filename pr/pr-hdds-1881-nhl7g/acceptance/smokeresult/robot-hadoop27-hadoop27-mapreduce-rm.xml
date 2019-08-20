@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190820 14:02:21.600" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/mapreduce.robot" id="s1" name="hadoop27-mapreduce">
+<test id="s1-t1" name="Execute PI calculation">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-${hadoop.version}.jar pi 3 3</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 14:02:21.667" level="INFO">Running command 'yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar pi 3 3 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 14:02:22.171" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190820 14:02:22.171" level="INFO">${output} = JAR does not exist or is not a normal file: /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar</msg>
+<status status="PASS" endtime="20190820 14:02:22.171" starttime="20190820 14:02:21.666"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 14:02:22.172" level="INFO">JAR does not exist or is not a normal file: /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar</msg>
+<status status="PASS" endtime="20190820 14:02:22.173" starttime="20190820 14:02:22.172"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 14:02:22.173" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190820 14:02:22.174" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190820 14:02:22.174" starttime="20190820 14:02:22.173"></status>
+</kw>
+<status status="FAIL" endtime="20190820 14:02:22.175" starttime="20190820 14:02:21.665"></status>
+</kw>
+<timeout value="2 minutes"></timeout>
+<status status="FAIL" endtime="20190820 14:02:22.175" critical="yes" starttime="20190820 14:02:21.664">255 != 0</status>
+</test>
+<test id="s1-t2" name="Execute WordCount">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>2</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190820 14:02:22.178" level="INFO">${random} = 10</msg>
+<status status="PASS" endtime="20190820 14:02:22.178" starttime="20190820 14:02:22.177"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-${hadoop.version}.jar wordcount o3fs://bucket1.vol1/key1 o3fs://bucket1.vol1/key1-${random}.count</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190820 14:02:22.179" level="INFO">Running command 'yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar wordcount o3fs://bucket1.vol1/key1 o3fs://bucket1.vol1/key1-10.count 2&gt;&amp;1'.</msg>
+<msg timestamp="20190820 14:02:22.608" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190820 14:02:22.608" level="INFO">${output} = JAR does not exist or is not a normal file: /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar</msg>
+<status status="PASS" endtime="20190820 14:02:22.608" starttime="20190820 14:02:22.179"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190820 14:02:22.609" level="INFO">JAR does not exist or is not a normal file: /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar</msg>
+<status status="PASS" endtime="20190820 14:02:22.609" starttime="20190820 14:02:22.608"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190820 14:02:22.610" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190820 14:02:22.610" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190820 14:02:22.610" starttime="20190820 14:02:22.609"></status>
+</kw>
+<status status="FAIL" endtime="20190820 14:02:22.612" starttime="20190820 14:02:22.178"></status>
+</kw>
+<timeout value="2 minutes"></timeout>
+<status status="FAIL" endtime="20190820 14:02:22.612" critical="yes" starttime="20190820 14:02:22.176">255 != 0</status>
+</test>
+<doc>Execute MR jobs</doc>
+<status status="FAIL" endtime="20190820 14:02:22.613" starttime="20190820 14:02:21.602"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="hadoop27-mapreduce" pass="0">hadoop27-mapreduce</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
