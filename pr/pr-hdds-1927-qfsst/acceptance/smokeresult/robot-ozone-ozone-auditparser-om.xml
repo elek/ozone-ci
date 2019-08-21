@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190821 00:43:04.833" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/auditparser" id="s1" name="ozone-auditparser">
+<suite source="/opt/hadoop/smoketest/auditparser/auditparser.robot" id="s1-s1" name="Auditparser">
+<test id="s1-s1-t1" name="Initiating freon to generate data">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:04.886" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:18.236" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:18.236" level="INFO">${output} = 2019-08-21 00:43:05 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-21 00:43:06 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190821 00:43:18.236" starttime="20190821 00:43:04.884"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:18.238" level="INFO">2019-08-21 00:43:05 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-21 00:43:06 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019-08-21 00:43:06 INFO  MetricsSystemImpl:191 - ozone-freon metrics system started
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:275 - Number of Threads: 1
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:280 - Number of Volumes: 5.
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:281 - Number of Buckets per Volume: 5.
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:282 - Number of Keys per Bucket: 5.
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:283 - Key size: 10240 bytes
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:284 - Buffer size: 4096 bytes
+2019-08-21 00:43:07 INFO  RandomKeyGenerator:304 - Starting progress bar Thread.
+
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:002019-08-21 00:43:07 INFO  RpcClient:293 - Creating Volume: vol-0-39918, with hadoop as owner.
+2019-08-21 00:43:07 INFO  RpcClient:293 - Creating Volume: vol-1-91218, with hadoop as owner.
+2019-08-21 00:43:07 INFO  RpcClient:293 - Creating Volume: vol-2-32971, with hadoop as owner.
+2019-08-21 00:43:07 INFO  RpcClient:293 - Creating Volume: vol-3-86772, with hadoop as owner.
+2019-08-21 00:43:07 INFO  RpcClient:293 - Creating Volume: vol-4-81411, with hadoop as owner.
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-0-39918/bucket-0-58539, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-1-91218/bucket-0-61505, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-2-32971/bucket-0-63899, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-3-86772/bucket-0-75907, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-4-81411/bucket-0-91573, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-0-39918/bucket-1-26603, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-1-91218/bucket-1-45224, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-2-32971/bucket-1-89909, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-3-86772/bucket-1-52568, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-4-81411/bucket-1-61535, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-0-39918/bucket-2-23602, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-1-91218/bucket-2-05550, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-2-32971/bucket-2-25236, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-3-86772/bucket-2-26258, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-4-81411/bucket-2-85397, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-0-39918/bucket-3-48667, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-1-91218/bucket-3-76603, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-2-32971/bucket-3-83487, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-3-86772/bucket-3-11229, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-4-81411/bucket-3-04712, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-0-39918/bucket-4-30556, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-1-91218/bucket-4-13043, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-2-32971/bucket-4-30456, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-3-86772/bucket-4-88634, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:07 INFO  RpcClient:432 - Creating Bucket: vol-4-81411/bucket-4-17679, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-21 00:43:08 WARN  MetricsSystemImpl:151 - ozone-freon metrics system already initialized!
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:01WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.ratis.thirdparty.com.google.protobuf.UnsafeUtil (file:/opt/hadoop/share/ozone/lib/ratis-thirdparty-misc-0.2.0.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of org.apache.ratis.thirdparty.com.google.protobuf.UnsafeUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+ 0.80% |?                                                                                                    |  1/125 Time: 0:00:02 12.80% |?????????????                                                                                        |  16/125 Time: 0:00:03 33.60% |??????????????????????????????????                                                                   |  42/125 Time: 0:00:04 60.80% |?????????????????????????????????????????????????????????????                                        |  76/125 Time: 0:00:05 86.40% |???????????????????????????????????????????????????????????????????????????????????????              |  108/125 Time: 0:00:06 100.00% |?????????????????????????????????????????????????????????????????????????????????????????????????????|  125/125 Time: 0:00:07
+
+***************************************************
+Status: Success
+Git Base Revision: e97acb3bd8f3befd27418996fa5d4b50bf2e17bf
+Number of Volumes created: 5
+Number of Buckets created: 25
+Number of Keys added: 125
+Ratis replication factor: ONE
+Ratis replication type: STAND_ALONE
+Average Time spent in volume creation: 00:00:00,096
+Average Time spent in bucket creation: 00:00:00,086
+Average Time spent in key creation: 00:00:01,010
+Average Time spent in key write: 00:00:05,192
+Total bytes written: 1280000
+Total Execution time: 00:00:11,368
+***************************************************</msg>
+<status status="PASS" endtime="20190821 00:43:18.239" starttime="20190821 00:43:18.237"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:18.240" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:18.240" starttime="20190821 00:43:18.239"></status>
+</kw>
+<msg timestamp="20190821 00:43:18.241" level="INFO">${result} = 2019-08-21 00:43:05 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-21 00:43:06 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190821 00:43:18.241" starttime="20190821 00:43:04.884"></status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>3min</arg>
+<arg>10sec</arg>
+<arg>Should contain</arg>
+<arg>${result}</arg>
+<arg>Number of Keys added: 125</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>Number of Keys added: 125</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:18.246" starttime="20190821 00:43:18.246"></status>
+</kw>
+<status status="PASS" endtime="20190821 00:43:18.247" starttime="20190821 00:43:18.241"></status>
+</kw>
+<kw name="Should Not Contain" library="BuiltIn">
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>ERROR</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:18.248" starttime="20190821 00:43:18.247"></status>
+</kw>
+<status status="PASS" endtime="20190821 00:43:18.248" critical="yes" starttime="20190821 00:43:04.883"></status>
+</test>
+<test id="s1-s1-t2" name="Testing audit parser">
+<kw name="Get Environment Variable" library="OperatingSystem">
+<doc>Returns the value of an environment variable with the given name.</doc>
+<arguments>
+<arg>HADOOP_LOG_DIR</arg>
+<arg>/var/log/hadoop</arg>
+</arguments>
+<assign>
+<var>${logdir}</var>
+</assign>
+<msg timestamp="20190821 00:43:18.251" level="INFO">${logdir} = /var/log/hadoop</msg>
+<status status="PASS" endtime="20190821 00:43:18.251" starttime="20190821 00:43:18.250"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ls -t "${logdir}" | grep om-audit | head -1</arg>
+</arguments>
+<assign>
+<var>${logfile}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:18.255" level="INFO">Running command 'ls -t "/var/log/hadoop" | grep om-audit | head -1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:18.281" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:18.282" level="INFO">${output} = om-audit-dd7ce1003791.log</msg>
+<status status="PASS" endtime="20190821 00:43:18.282" starttime="20190821 00:43:18.252"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:18.283" level="INFO">om-audit-dd7ce1003791.log</msg>
+<status status="PASS" endtime="20190821 00:43:18.284" starttime="20190821 00:43:18.283"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:18.285" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:18.285" starttime="20190821 00:43:18.284"></status>
+</kw>
+<msg timestamp="20190821 00:43:18.286" level="INFO">${logfile} = om-audit-dd7ce1003791.log</msg>
+<status status="PASS" endtime="20190821 00:43:18.286" starttime="20190821 00:43:18.251"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" load "${logdir}/${logfile}"</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:18.290" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" load "/var/log/hadoop/om-audit-dd7ce1003791.log" 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:27.049" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:27.049" level="INFO">${output} = /var/log/hadoop/om-audit-dd7ce1003791.log has been loaded successfully</msg>
+<status status="PASS" endtime="20190821 00:43:27.050" starttime="20190821 00:43:18.287"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:27.051" level="INFO">/var/log/hadoop/om-audit-dd7ce1003791.log has been loaded successfully</msg>
+<status status="PASS" endtime="20190821 00:43:27.051" starttime="20190821 00:43:27.050"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:27.052" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:27.053" starttime="20190821 00:43:27.052"></status>
+</kw>
+<status status="PASS" endtime="20190821 00:43:27.053" starttime="20190821 00:43:18.286"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" template top5cmds</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:27.056" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" template top5cmds 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:27.930" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:27.931" level="INFO">${output} = ALLOCATE_KEY	125	
+COMMIT_KEY	125	
+CREATE_BUCKET	25	
+CREATE_VOLUME	5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:27.931" starttime="20190821 00:43:27.054"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:27.932" level="INFO">ALLOCATE_KEY	125	
+COMMIT_KEY	125	
+CREATE_BUCKET	25	
+CREATE_VOLUME	5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:27.933" starttime="20190821 00:43:27.932"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:27.933" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:27.934" starttime="20190821 00:43:27.933"></status>
+</kw>
+<msg timestamp="20190821 00:43:27.934" level="INFO">${result} = ALLOCATE_KEY	125	
+COMMIT_KEY	125	
+CREATE_BUCKET	25	
+CREATE_VOLUME	5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:27.934" starttime="20190821 00:43:27.053"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>ALLOCATE_KEY</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:27.935" starttime="20190821 00:43:27.935"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" template top5users</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:27.939" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" template top5users 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:28.770" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:28.770" level="INFO">${output} = hadoop	280	
+</msg>
+<status status="PASS" endtime="20190821 00:43:28.770" starttime="20190821 00:43:27.936"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:28.772" level="INFO">hadoop	280	
+</msg>
+<status status="PASS" endtime="20190821 00:43:28.772" starttime="20190821 00:43:28.771"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:28.773" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:28.773" starttime="20190821 00:43:28.772"></status>
+</kw>
+<msg timestamp="20190821 00:43:28.773" level="INFO">${result} = hadoop	280	
+</msg>
+<status status="PASS" endtime="20190821 00:43:28.773" starttime="20190821 00:43:27.936"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Set username</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:28.774" starttime="20190821 00:43:28.774"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${user}</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:28.775" starttime="20190821 00:43:28.775"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" query "select count(*) from audit where op='CREATE_VOLUME' and RESULT='SUCCESS'"</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:28.779" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" query "select count(*) from audit where op='CREATE_VOLUME' and RESULT='SUCCESS'" 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:29.609" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:29.609" level="INFO">${output} = 5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:29.609" starttime="20190821 00:43:28.776"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:29.610" level="INFO">5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:29.610" starttime="20190821 00:43:29.610"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:29.611" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:29.611" starttime="20190821 00:43:29.610"></status>
+</kw>
+<msg timestamp="20190821 00:43:29.611" level="INFO">${result} = 5	
+</msg>
+<status status="PASS" endtime="20190821 00:43:29.611" starttime="20190821 00:43:28.775"></status>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<doc>Converts the given item to a floating point number.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20190821 00:43:29.612" level="INFO">${result} = 5.0</msg>
+<status status="PASS" endtime="20190821 00:43:29.612" starttime="20190821 00:43:29.612"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${result}&gt;${count}</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:29.613" starttime="20190821 00:43:29.612"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" query "select count(*) from audit where op='CREATE_BUCKET' and RESULT='SUCCESS'"</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 00:43:29.615" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" query "select count(*) from audit where op='CREATE_BUCKET' and RESULT='SUCCESS'" 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 00:43:30.432" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 00:43:30.432" level="INFO">${output} = 25	
+</msg>
+<status status="PASS" endtime="20190821 00:43:30.432" starttime="20190821 00:43:29.614"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 00:43:30.434" level="INFO">25	
+</msg>
+<status status="PASS" endtime="20190821 00:43:30.434" starttime="20190821 00:43:30.433"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 00:43:30.434" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 00:43:30.435" starttime="20190821 00:43:30.434"></status>
+</kw>
+<msg timestamp="20190821 00:43:30.435" level="INFO">${result} = 25	
+</msg>
+<status status="PASS" endtime="20190821 00:43:30.435" starttime="20190821 00:43:29.613"></status>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<doc>Converts the given item to a floating point number.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20190821 00:43:30.436" level="INFO">${result} = 25.0</msg>
+<status status="PASS" endtime="20190821 00:43:30.436" starttime="20190821 00:43:30.435"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${result}&gt;${count}</arg>
+</arguments>
+<status status="PASS" endtime="20190821 00:43:30.437" starttime="20190821 00:43:30.436"></status>
+</kw>
+<status status="PASS" endtime="20190821 00:43:30.437" critical="yes" starttime="20190821 00:43:18.248"></status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="PASS" endtime="20190821 00:43:30.438" starttime="20190821 00:43:04.858"></status>
+</suite>
+<status status="PASS" endtime="20190821 00:43:30.441" starttime="20190821 00:43:04.834"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="ozone-auditparser" pass="2">ozone-auditparser</stat>
+<stat fail="0" id="s1-s1" name="Auditparser" pass="2">ozone-auditparser.Auditparser</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
