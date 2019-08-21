@@ -1,0 +1,1524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190821 09:22:35.758" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/security" id="s1" name="ozonesecure-security">
+<suite source="/opt/hadoop/smoketest/security/ozone-secure-fs.robot" id="s1-s1" name="Ozone-Secure-Fs">
+<test id="s1-s1-t1" name="Create volume bucket with wrong credentials">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>kdestroy</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:35.814" level="INFO">Running command 'kdestroy 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:35.821" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:22:35.821" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:22:35.822" starttime="20190821 09:22:35.812"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:35.823" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:22:35.823" starttime="20190821 09:22:35.822"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:35.824" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:22:35.824" starttime="20190821 09:22:35.823"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:35.825" starttime="20190821 09:22:35.812"></status>
+</kw>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>ozone sh volume create o3://om/fstest</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:35.827" level="INFO">Running command 'ozone sh volume create o3://om/fstest 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:37.182" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:37.182" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:37.182" starttime="20190821 09:22:35.825"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${output}</arg>
+<arg>Client cannot authenticate via</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.183" level="FAIL">'WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:37 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:153)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:109)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:105)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:70)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:38)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 22 more
+Caused by: java.net.UnknownHostException: om
+	... 28 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient' does not contain 'Client cannot authenticate via'</msg>
+<status status="FAIL" endtime="20190821 09:22:37.183" starttime="20190821 09:22:37.182"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:37.184" critical="yes" starttime="20190821 09:22:35.811">'WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:37 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(Ozo...
+    [ Message content over the limit has been removed. ]
+... org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 22 more
+Caused by: java.net.UnknownHostException: om
+	... 28 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient' does not contain 'Client cannot authenticate via'</status>
+</test>
+<test id="s1-s1-t2" name="Create volume bucket with credentials">
+<kw name="Run Keyword" library="BuiltIn">
+<doc>Executes the given keyword with the given arguments.</doc>
+<arguments>
+<arg>Kinit test user</arg>
+<arg>testuser</arg>
+<arg>testuser.keytab</arg>
+</arguments>
+<kw name="Kinit test user" library="commonlib">
+<arguments>
+<arg>testuser</arg>
+<arg>testuser.keytab</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hostname</arg>
+</arguments>
+<assign>
+<var>${hostname}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:37.188" level="INFO">Running command 'hostname 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:37.195" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:22:37.195" level="INFO">${output} = scm</msg>
+<status status="PASS" endtime="20190821 09:22:37.195" starttime="20190821 09:22:37.186"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.197" level="INFO">scm</msg>
+<status status="PASS" endtime="20190821 09:22:37.197" starttime="20190821 09:22:37.196"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.198" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:22:37.198" starttime="20190821 09:22:37.198"></status>
+</kw>
+<msg timestamp="20190821 09:22:37.199" level="INFO">${hostname} = scm</msg>
+<status status="PASS" endtime="20190821 09:22:37.199" starttime="20190821 09:22:37.186"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${TEST_USER}</arg>
+<arg>${user}/${hostname}@EXAMPLE.COM</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.202" level="INFO">${TEST_USER} = testuser/scm@EXAMPLE.COM</msg>
+<status status="PASS" endtime="20190821 09:22:37.202" starttime="20190821 09:22:37.199"></status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>2min</arg>
+<arg>10sec</arg>
+<arg>Execute</arg>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:37.207" level="INFO">Running command 'kinit -k testuser/scm@EXAMPLE.COM -t /etc/security/keytabs/testuser.keytab 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:37.238" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:22:37.239" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:22:37.239" starttime="20190821 09:22:37.205"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.240" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:22:37.241" starttime="20190821 09:22:37.239"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.242" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:22:37.242" starttime="20190821 09:22:37.241"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.242" starttime="20190821 09:22:37.204"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.242" starttime="20190821 09:22:37.202"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.243" starttime="20190821 09:22:37.186"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.243" starttime="20190821 09:22:37.185"></status>
+</kw>
+<kw name="Run Keyword" library="BuiltIn">
+<doc>Executes the given keyword with the given arguments.</doc>
+<arguments>
+<arg>Setup volume names</arg>
+</arguments>
+<kw name="Setup volume names">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>2</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190821 09:22:37.245" level="INFO">${random} = 06</msg>
+<status status="PASS" endtime="20190821 09:22:37.246" starttime="20190821 09:22:37.245"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${volume1}</arg>
+<arg>fstest${random}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.248" level="INFO">${volume1} = fstest06</msg>
+<status status="PASS" endtime="20190821 09:22:37.248" starttime="20190821 09:22:37.246"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${volume2}</arg>
+<arg>fstest2${random}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.251" level="INFO">${volume2} = fstest206</msg>
+<status status="PASS" endtime="20190821 09:22:37.251" starttime="20190821 09:22:37.249"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${volume3}</arg>
+<arg>fstest3${random}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:37.254" level="INFO">${volume3} = fstest306</msg>
+<status status="PASS" endtime="20190821 09:22:37.254" starttime="20190821 09:22:37.252"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.254" starttime="20190821 09:22:37.244"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:22:37.254" starttime="20190821 09:22:37.243"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume create o3://om/${volume1}</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:37.258" level="INFO">Running command 'ozone sh volume create o3://om/fstest06 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:38.711" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:38.711" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:38.711" starttime="20190821 09:22:37.255"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:38.713" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:38 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:153)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:109)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:105)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:70)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:38)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 22 more
+Caused by: java.net.UnknownHostException: om
+	... 28 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:38.713" starttime="20190821 09:22:38.712"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:38.713" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:38.714" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:38.714" starttime="20190821 09:22:38.713"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:38.714" starttime="20190821 09:22:37.255"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:38.715" critical="yes" starttime="20190821 09:22:37.184">255 != 0</status>
+</test>
+<test id="s1-s1-t3" name="Check volume from ozonefs">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone fs -ls o3fs://bucket1.${volume1}/</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:38.718" level="INFO">Running command 'ozone fs -ls o3fs://bucket1.fstest06/ 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:40.424" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190821 09:22:40.425" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:40.425" starttime="20190821 09:22:38.716"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:40.427" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:40 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:352)
+	at org.apache.hadoop.fs.shell.Command.expandArgument(Command.java:250)
+	at org.apache.hadoop.fs.shell.Command.expandArguments(Command.java:233)
+	at org.apache.hadoop.fs.shell.FsCommand.processRawArguments(FsCommand.java:104)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:177)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:327)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:90)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:390)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 25 more
+Caused by: java.net.UnknownHostException: om
+	... 31 more
+ls: Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:40.427" starttime="20190821 09:22:40.426"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:40.428" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:40.428" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:40.429" starttime="20190821 09:22:40.427"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:40.429" starttime="20190821 09:22:38.716"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:40.430" critical="yes" starttime="20190821 09:22:38.715">1 != 0</status>
+</test>
+<test id="s1-s1-t4" name="Test Volume Acls">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume create ${volume3}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:40.435" level="INFO">Running command 'ozone sh volume create fstest306 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:41.856" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:41.857" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:41.857" starttime="20190821 09:22:40.433"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:41.858" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:41 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:111)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:70)
+	at org.apache.hadoop.ozone.web.ozShell.volume.CreateVolumeHandler.call(CreateVolumeHandler.java:38)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 20 more
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:41.858" starttime="20190821 09:22:41.857"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:41.859" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:41.860" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:41.860" starttime="20190821 09:22:41.859"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:41.860" starttime="20190821 09:22:40.432"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:41.860" critical="yes" starttime="20190821 09:22:40.430">255 != 0</status>
+</test>
+<test id="s1-s1-t5" name="Test Bucket Acls">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh bucket create ${volume3}/bk1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:41.864" level="INFO">Running command 'ozone sh bucket create fstest306/bk1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:43.391" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:43.391" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:43.391" starttime="20190821 09:22:41.863"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:43.394" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:43 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:111)
+	at org.apache.hadoop.ozone.web.ozShell.bucket.CreateBucketHandler.call(CreateBucketHandler.java:52)
+	at org.apache.hadoop.ozone.web.ozShell.bucket.CreateBucketHandler.call(CreateBucketHandler.java:33)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 20 more
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:43.394" starttime="20190821 09:22:43.392"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:43.395" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:43.396" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:43.396" starttime="20190821 09:22:43.395"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:43.397" starttime="20190821 09:22:41.862"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:43.397" critical="yes" starttime="20190821 09:22:41.861">255 != 0</status>
+</test>
+<test id="s1-s1-t6" name="Test key Acls">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh key put ${volume3}/bk1/key1 /opt/hadoop/NOTICE.txt</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:43.403" level="INFO">Running command 'ozone sh key put fstest306/bk1/key1 /opt/hadoop/NOTICE.txt 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:45.000" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:45.000" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:45.000" starttime="20190821 09:22:43.400"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:45.002" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:44 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:111)
+	at org.apache.hadoop.ozone.web.ozShell.keys.PutKeyHandler.call(PutKeyHandler.java:76)
+	at org.apache.hadoop.ozone.web.ozShell.keys.PutKeyHandler.call(PutKeyHandler.java:53)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 20 more
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:45.002" starttime="20190821 09:22:45.001"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:45.003" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:45.004" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:45.004" starttime="20190821 09:22:45.003"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:45.005" starttime="20190821 09:22:43.399"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:45.005" critical="yes" starttime="20190821 09:22:43.398">255 != 0</status>
+</test>
+<test id="s1-s1-t7" name="Test native authorizer">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume removeacl ${volume3} -a group:root:a</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:45.011" level="INFO">Running command 'ozone sh volume removeacl fstest306 -a group:root:a 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:46.704" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:22:46.704" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:22:46.704" starttime="20190821 09:22:45.009"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:22:46.706" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:22:46 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:111)
+	at org.apache.hadoop.ozone.web.ozShell.volume.RemoveAclVolumeHandler.call(RemoveAclVolumeHandler.java:74)
+	at org.apache.hadoop.ozone.web.ozShell.volume.RemoveAclVolumeHandler.call(RemoveAclVolumeHandler.java:39)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:60)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 20 more
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:22:46.706" starttime="20190821 09:22:46.705"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:22:46.707" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:22:46.708" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:22:46.708" starttime="20190821 09:22:46.707"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:46.709" starttime="20190821 09:22:45.008"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:22:46.709" critical="yes" starttime="20190821 09:22:45.006">255 != 0</status>
+</test>
+<doc>Smoke test to start cluster with docker-compose environments.</doc>
+<status status="FAIL" endtime="20190821 09:22:46.712" starttime="20190821 09:22:35.784"></status>
+</suite>
+<suite source="/opt/hadoop/smoketest/security/ozone-secure-s3.robot" id="s1-s2" name="Ozone-Secure-S3">
+<test id="s1-s2-t1" name="Secure S3 test Success">
+<kw name="Run Keyword" library="BuiltIn">
+<doc>Executes the given keyword with the given arguments.</doc>
+<arguments>
+<arg>Setup s3 tests</arg>
+</arguments>
+<kw name="Setup s3 tests" library="commonawslib">
+<kw name="Run Keyword" library="BuiltIn">
+<doc>Executes the given keyword with the given arguments.</doc>
+<arguments>
+<arg>Install aws cli</arg>
+</arguments>
+<kw name="Install aws cli" library="commonlib">
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>which apt-get</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:46.745" level="INFO">Running command 'which apt-get 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:46.752" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190821 09:22:46.753" level="INFO">${output} = which: no apt-get in (/opt/hadoop/bin/docker:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hadoop/bin)</msg>
+<status status="PASS" endtime="20190821 09:22:46.753" starttime="20190821 09:22:46.743"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${rc}' == '0'</arg>
+<arg>Install aws cli s3 debian</arg>
+</arguments>
+<status status="PASS" endtime="20190821 09:22:46.755" starttime="20190821 09:22:46.754"></status>
+</kw>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>yum --help</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:46.758" level="INFO">Running command 'yum --help 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:22:46.949" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:22:46.949" level="INFO">${output} = Loaded plugins: fastestmirror, ovl
+ovl: Error while doing RPMdb copy-up:
+[Errno 13] Permission denied: '/var/lib/rpm/Providename'
+Usage: yum [options] COMMAND
+
+List of Commands:
+
+check          Check ...</msg>
+<status status="PASS" endtime="20190821 09:22:46.949" starttime="20190821 09:22:46.756"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${rc}' == '0'</arg>
+<arg>Install aws cli s3 centos</arg>
+</arguments>
+<kw name="Install aws cli s3 centos" library="commonawslib">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>sudo yum install -y awscli</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:22:46.956" level="INFO">Running command 'sudo yum install -y awscli 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:16.035" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:16.035" level="INFO">${output} = Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: mirror.sfo12.us.leaseweb.net
+ * epel: mirror.sfo12.us.leaseweb.net
+ * extras: mirror.sfo12.us.leaseweb.net
+ * updates: mirror.ke...</msg>
+<status status="PASS" endtime="20190821 09:23:16.035" starttime="20190821 09:22:46.954"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.037" level="INFO">Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: mirror.sfo12.us.leaseweb.net
+ * epel: mirror.sfo12.us.leaseweb.net
+ * extras: mirror.sfo12.us.leaseweb.net
+ * updates: mirror.keystealth.org
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package awscli.noarch 0:1.14.28-5.el7_5.1 will be installed
+--&gt; Processing Dependency: python-s3transfer &gt;= 0.1.9 for package: awscli-1.14.28-5.el7_5.1.noarch
+--&gt; Processing Dependency: python-docutils &gt;= 0.10 for package: awscli-1.14.28-5.el7_5.1.noarch
+--&gt; Processing Dependency: python-cryptography &gt;= 1.7.2 for package: awscli-1.14.28-5.el7_5.1.noarch
+--&gt; Processing Dependency: PyYAML &gt;= 3.10 for package: awscli-1.14.28-5.el7_5.1.noarch
+--&gt; Running transaction check
+---&gt; Package PyYAML.x86_64 0:3.10-11.el7 will be installed
+--&gt; Processing Dependency: libyaml-0.so.2()(64bit) for package: PyYAML-3.10-11.el7.x86_64
+---&gt; Package python-docutils.noarch 0:0.11-0.3.20130715svn7687.el7 will be installed
+--&gt; Processing Dependency: python-imaging for package: python-docutils-0.11-0.3.20130715svn7687.el7.noarch
+---&gt; Package python-s3transfer.noarch 0:0.1.13-1.el7.0.1 will be installed
+--&gt; Processing Dependency: python-dateutil &gt;= 1.4 for package: python-s3transfer-0.1.13-1.el7.0.1.noarch
+---&gt; Package python2-cryptography.x86_64 0:1.7.2-2.el7 will be installed
+--&gt; Processing Dependency: python-six &gt;= 1.4.1 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Processing Dependency: python-pyasn1 &gt;= 0.1.8 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Processing Dependency: python-idna &gt;= 2.0 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Processing Dependency: python-cffi &gt;= 1.4.1 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Processing Dependency: python-enum34 for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Processing Dependency: openssl for package: python2-cryptography-1.7.2-2.el7.x86_64
+--&gt; Running transaction check
+---&gt; Package libyaml.x86_64 0:0.1.4-11.el7_0 will be installed
+---&gt; Package openssl.x86_64 1:1.0.2k-16.el7_6.1 will be installed
+--&gt; Processing Dependency: openssl-libs(x86-64) = 1:1.0.2k-16.el7_6.1 for package: 1:openssl-1.0.2k-16.el7_6.1.x86_64
+--&gt; Processing Dependency: make for package: 1:openssl-1.0.2k-16.el7_6.1.x86_64
+---&gt; Package python-cffi.x86_64 0:1.6.0-5.el7 will be installed
+--&gt; Processing Dependency: python-pycparser for package: python-cffi-1.6.0-5.el7.x86_64
+---&gt; Package python-dateutil.noarch 0:1.5-7.el7 will be installed
+---&gt; Package python-enum34.noarch 0:1.0.4-1.el7 will be installed
+---&gt; Package python-idna.noarch 0:2.4-1.el7 will be installed
+---&gt; Package python-pillow.x86_64 0:2.0.0-19.gitd1c6db8.el7 will be installed
+--&gt; Processing Dependency: libtiff.so.5(LIBTIFF_4.0)(64bit) for package: python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64
+--&gt; Processing Dependency: libwebp.so.4()(64bit) for package: python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64
+--&gt; Processing Dependency: libtiff.so.5()(64bit) for package: python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64
+---&gt; Package python-six.noarch 0:1.9.0-2.el7 will be installed
+---&gt; Package python2-pyasn1.noarch 0:0.1.9-7.el7 will be installed
+--&gt; Running transaction check
+---&gt; Package libtiff.x86_64 0:4.0.3-27.el7_3 will be installed
+--&gt; Processing Dependency: libjbig.so.2.0()(64bit) for package: libtiff-4.0.3-27.el7_3.x86_64
+---&gt; Package libwebp.x86_64 0:0.3.0-7.el7 will be installed
+---&gt; Package make.x86_64 1:3.82-23.el7 will be installed
+---&gt; Package openssl-libs.x86_64 1:1.0.2k-16.el7 will be updated
+---&gt; Package openssl-libs.x86_64 1:1.0.2k-16.el7_6.1 will be an update
+---&gt; Package python-pycparser.noarch 0:2.14-1.el7 will be installed
+--&gt; Processing Dependency: python-ply for package: python-pycparser-2.14-1.el7.noarch
+--&gt; Running transaction check
+---&gt; Package jbigkit-libs.x86_64 0:2.0-11.el7 will be installed
+---&gt; Package python-ply.noarch 0:3.4-11.el7 will be installed
+--&gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch     Version                        Repository
+                                                                           Size
+================================================================================
+Installing:
+ awscli                 noarch   1.14.28-5.el7_5.1              base      1.0 M
+Installing for dependencies:
+ PyYAML                 x86_64   3.10-11.el7                    base      153 k
+ jbigkit-libs           x86_64   2.0-11.el7                     base       46 k
+ libtiff                x86_64   4.0.3-27.el7_3                 base      170 k
+ libwebp                x86_64   0.3.0-7.el7                    base      170 k
+ libyaml                x86_64   0.1.4-11.el7_0                 base       55 k
+ make                   x86_64   1:3.82-23.el7                  base      420 k
+ openssl                x86_64   1:1.0.2k-16.el7_6.1            updates   493 k
+ python-cffi            x86_64   1.6.0-5.el7                    base      218 k
+ python-dateutil        noarch   1.5-7.el7                      base       85 k
+ python-docutils        noarch   0.11-0.3.20130715svn7687.el7   base      1.5 M
+ python-enum34          noarch   1.0.4-1.el7                    base       52 k
+ python-idna            noarch   2.4-1.el7                      base       94 k
+ python-pillow          x86_64   2.0.0-19.gitd1c6db8.el7        base      438 k
+ python-ply             noarch   3.4-11.el7                     base      123 k
+ python-pycparser       noarch   2.14-1.el7                     base      104 k
+ python-s3transfer      noarch   0.1.13-1.el7.0.1               updates   2.9 M
+ python-six             noarch   1.9.0-2.el7                    base       29 k
+ python2-cryptography   x86_64   1.7.2-2.el7                    base      502 k
+ python2-pyasn1         noarch   0.1.9-7.el7                    base      100 k
+Updating for dependencies:
+ openssl-libs           x86_64   1:1.0.2k-16.el7_6.1            updates   1.2 M
+
+Transaction Summary
+================================================================================
+Install  1 Package  (+19 Dependent packages)
+Upgrade             (  1 Dependent package)
+
+Total download size: 9.9 M
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+--------------------------------------------------------------------------------
+Total                                               23 MB/s | 9.9 MB  00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Updating   : 1:openssl-libs-1.0.2k-16.el7_6.1.x86_64                     1/22 
+  Installing : python2-pyasn1-0.1.9-7.el7.noarch                           2/22 
+  Installing : libyaml-0.1.4-11.el7_0.x86_64                               3/22 
+  Installing : PyYAML-3.10-11.el7.x86_64                                   4/22 
+  Installing : jbigkit-libs-2.0-11.el7.x86_64                              5/22 
+  Installing : libtiff-4.0.3-27.el7_3.x86_64                               6/22 
+  Installing : 1:make-3.82-23.el7.x86_64                                   7/22 
+  Installing : 1:openssl-1.0.2k-16.el7_6.1.x86_64                          8/22 
+  Installing : python-ply-3.4-11.el7.noarch                                9/22 
+  Installing : python-pycparser-2.14-1.el7.noarch                         10/22 
+  Installing : python-cffi-1.6.0-5.el7.x86_64                             11/22 
+  Installing : python-idna-2.4-1.el7.noarch                               12/22 
+  Installing : python-six-1.9.0-2.el7.noarch                              13/22 
+  Installing : python-dateutil-1.5-7.el7.noarch                           14/22 
+  Installing : python-enum34-1.0.4-1.el7.noarch                           15/22 
+  Installing : python2-cryptography-1.7.2-2.el7.x86_64                    16/22 
+  Installing : libwebp-0.3.0-7.el7.x86_64                                 17/22 
+  Installing : python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64               18/22 
+  Installing : python-docutils-0.11-0.3.20130715svn7687.el7.noarch        19/22 
+  Installing : python-s3transfer-0.1.13-1.el7.0.1.noarch                  20/22 
+  Installing : awscli-1.14.28-5.el7_5.1.noarch                            21/22 
+  Cleanup    : 1:openssl-libs-1.0.2k-16.el7.x86_64                        22/22 
+  Verifying  : libtiff-4.0.3-27.el7_3.x86_64                               1/22 
+  Verifying  : libwebp-0.3.0-7.el7.x86_64                                  2/22 
+  Verifying  : python-enum34-1.0.4-1.el7.noarch                            3/22 
+  Verifying  : python-docutils-0.11-0.3.20130715svn7687.el7.noarch         4/22 
+  Verifying  : python-dateutil-1.5-7.el7.noarch                            5/22 
+  Verifying  : python-six-1.9.0-2.el7.noarch                               6/22 
+  Verifying  : python-s3transfer-0.1.13-1.el7.0.1.noarch                   7/22 
+  Verifying  : python-idna-2.4-1.el7.noarch                                8/22 
+  Verifying  : 1:openssl-1.0.2k-16.el7_6.1.x86_64                          9/22 
+  Verifying  : python-ply-3.4-11.el7.noarch                               10/22 
+  Verifying  : python-cffi-1.6.0-5.el7.x86_64                             11/22 
+  Verifying  : 1:make-3.82-23.el7.x86_64                                  12/22 
+  Verifying  : python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64               13/22 
+  Verifying  : jbigkit-libs-2.0-11.el7.x86_64                             14/22 
+  Verifying  : python-pycparser-2.14-1.el7.noarch                         15/22 
+  Verifying  : libyaml-0.1.4-11.el7_0.x86_64                              16/22 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7_6.1.x86_64                    17/22 
+  Verifying  : python2-pyasn1-0.1.9-7.el7.noarch                          18/22 
+  Verifying  : PyYAML-3.10-11.el7.x86_64                                  19/22 
+  Verifying  : awscli-1.14.28-5.el7_5.1.noarch                            20/22 
+  Verifying  : python2-cryptography-1.7.2-2.el7.x86_64                    21/22 
+  Verifying  : 1:openssl-libs-1.0.2k-16.el7.x86_64                        22/22 
+
+Installed:
+  awscli.noarch 0:1.14.28-5.el7_5.1                                             
+
+Dependency Installed:
+  PyYAML.x86_64 0:3.10-11.el7                                                   
+  jbigkit-libs.x86_64 0:2.0-11.el7                                              
+  libtiff.x86_64 0:4.0.3-27.el7_3                                               
+  libwebp.x86_64 0:0.3.0-7.el7                                                  
+  libyaml.x86_64 0:0.1.4-11.el7_0                                               
+  make.x86_64 1:3.82-23.el7                                                     
+  openssl.x86_64 1:1.0.2k-16.el7_6.1                                            
+  python-cffi.x86_64 0:1.6.0-5.el7                                              
+  python-dateutil.noarch 0:1.5-7.el7                                            
+  python-docutils.noarch 0:0.11-0.3.20130715svn7687.el7                         
+  python-enum34.noarch 0:1.0.4-1.el7                                            
+  python-idna.noarch 0:2.4-1.el7                                                
+  python-pillow.x86_64 0:2.0.0-19.gitd1c6db8.el7                                
+  python-ply.noarch 0:3.4-11.el7                                                
+  python-pycparser.noarch 0:2.14-1.el7                                          
+  python-s3transfer.noarch 0:0.1.13-1.el7.0.1                                   
+  python-six.noarch 0:1.9.0-2.el7                                               
+  python2-cryptography.x86_64 0:1.7.2-2.el7                                     
+  python2-pyasn1.noarch 0:0.1.9-7.el7                                           
+
+Dependency Updated:
+  openssl-libs.x86_64 1:1.0.2k-16.el7_6.1                                       
+
+Complete!</msg>
+<status status="PASS" endtime="20190821 09:23:16.038" starttime="20190821 09:23:16.036"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.039" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:16.039" starttime="20190821 09:23:16.038"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.040" starttime="20190821 09:22:46.953"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.040" starttime="20190821 09:22:46.952"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.040" starttime="20190821 09:22:46.950"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.040" starttime="20190821 09:22:46.742"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.040" starttime="20190821 09:22:46.742"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${OZONE_S3_SET_CREDENTIALS}' == 'true'</arg>
+<arg>Setup v4 headers</arg>
+</arguments>
+<kw name="Setup v4 headers" library="commonawslib">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Kinit test user</arg>
+<arg>testuser</arg>
+<arg>testuser.keytab</arg>
+</arguments>
+<kw name="Kinit test user" library="commonlib">
+<arguments>
+<arg>testuser</arg>
+<arg>testuser.keytab</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hostname</arg>
+</arguments>
+<assign>
+<var>${hostname}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:16.048" level="INFO">Running command 'hostname 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:16.055" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:16.055" level="INFO">${output} = scm</msg>
+<status status="PASS" endtime="20190821 09:23:16.055" starttime="20190821 09:23:16.045"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.057" level="INFO">scm</msg>
+<status status="PASS" endtime="20190821 09:23:16.058" starttime="20190821 09:23:16.056"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.059" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:16.059" starttime="20190821 09:23:16.058"></status>
+</kw>
+<msg timestamp="20190821 09:23:16.060" level="INFO">${hostname} = scm</msg>
+<status status="PASS" endtime="20190821 09:23:16.060" starttime="20190821 09:23:16.045"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${TEST_USER}</arg>
+<arg>${user}/${hostname}@EXAMPLE.COM</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.063" level="INFO">${TEST_USER} = testuser/scm@EXAMPLE.COM</msg>
+<status status="PASS" endtime="20190821 09:23:16.063" starttime="20190821 09:23:16.060"></status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>2min</arg>
+<arg>10sec</arg>
+<arg>Execute</arg>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>kinit -k ${user}/${hostname}@EXAMPLE.COM -t /etc/security/keytabs/${keytab}</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:16.068" level="INFO">Running command 'kinit -k testuser/scm@EXAMPLE.COM -t /etc/security/keytabs/testuser.keytab 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:16.089" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:16.089" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:23:16.089" starttime="20190821 09:23:16.066"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.091" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:23:16.091" starttime="20190821 09:23:16.090"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:16.092" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:16.092" starttime="20190821 09:23:16.091"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.093" starttime="20190821 09:23:16.065"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.093" starttime="20190821 09:23:16.064"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.093" starttime="20190821 09:23:16.044"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:16.094" starttime="20190821 09:23:16.043"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone s3 getsecret</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:16.097" level="INFO">Running command 'ozone s3 getsecret 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:17.605" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:23:17.605" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190821 09:23:17.605" starttime="20190821 09:23:16.095"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:17.607" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-21 09:23:17 ERROR OzoneClientFactory:294 - Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient exception: 
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:291)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:169)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneAddress.createClient(OzoneAddress.java:111)
+	at org.apache.hadoop.ozone.web.ozShell.s3.GetS3SecretHandler.call(GetS3SecretHandler.java:45)
+	at org.apache.hadoop.ozone.web.ozShell.s3.GetS3SecretHandler.call(GetS3SecretHandler.java:32)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.web.ozShell.s3.S3Shell.execute(S3Shell.java:43)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.s3.S3Shell.main(S3Shell.java:54)
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:154)
+	... 20 more
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+Couldn't create protocol class org.apache.hadoop.ozone.client.rpc.RpcClient</msg>
+<status status="PASS" endtime="20190821 09:23:17.608" starttime="20190821 09:23:17.606"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:17.609" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190821 09:23:17.609" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190821 09:23:17.609" starttime="20190821 09:23:17.608"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.610" starttime="20190821 09:23:16.094"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.610" starttime="20190821 09:23:16.042"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.610" starttime="20190821 09:23:16.041"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.611" starttime="20190821 09:22:46.741"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.611" starttime="20190821 09:22:46.741"></status>
+</kw>
+<status status="FAIL" endtime="20190821 09:23:17.611" critical="yes" starttime="20190821 09:22:46.740">255 != 0</status>
+</test>
+<test id="s1-s2-t2" name="Secure S3 test Failure">
+<kw name="Run Keyword" library="BuiltIn">
+<doc>Executes the given keyword with the given arguments.</doc>
+<arguments>
+<arg>Setup incorrect credentials for S3</arg>
+</arguments>
+<kw name="Setup incorrect credentials for S3" library="commonawslib">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>aws configure set default.s3.signature_version s3v4</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:17.616" level="INFO">Running command 'aws configure set default.s3.signature_version s3v4 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:18.054" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:18.054" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:23:18.054" starttime="20190821 09:23:17.614"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:18.056" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:23:18.056" starttime="20190821 09:23:18.055"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:18.057" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:18.057" starttime="20190821 09:23:18.056"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:18.058" starttime="20190821 09:23:17.613"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>aws configure set aws_access_key_id dlfknslnfslf</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:18.062" level="INFO">Running command 'aws configure set aws_access_key_id dlfknslnfslf 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:18.547" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:18.548" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:23:18.548" starttime="20190821 09:23:18.060"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:18.550" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:23:18.550" starttime="20190821 09:23:18.549"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:18.551" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:18.551" starttime="20190821 09:23:18.550"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:18.552" starttime="20190821 09:23:18.058"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>aws configure set aws_secret_access_key dlfknslnfslf</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:18.555" level="INFO">Running command 'aws configure set aws_secret_access_key dlfknslnfslf 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:19.024" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:19.024" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:23:19.024" starttime="20190821 09:23:18.553"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:19.026" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:23:19.026" starttime="20190821 09:23:19.025"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:19.027" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:19.027" starttime="20190821 09:23:19.026"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:19.027" starttime="20190821 09:23:18.552"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>aws configure set region us-west-1</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190821 09:23:19.031" level="INFO">Running command 'aws configure set region us-west-1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:19.518" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190821 09:23:19.518" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190821 09:23:19.518" starttime="20190821 09:23:19.029"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190821 09:23:19.520" level="INFO"></msg>
+<status status="PASS" endtime="20190821 09:23:19.520" starttime="20190821 09:23:19.519"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190821 09:23:19.521" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190821 09:23:19.521" starttime="20190821 09:23:19.520"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:19.522" starttime="20190821 09:23:19.028"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:19.522" starttime="20190821 09:23:17.613"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:19.522" starttime="20190821 09:23:17.612"></status>
+</kw>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>aws s3api --endpoint-url ${ENDPOINT_URL} create-bucket --bucket bucket-test123</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${result}</var>
+</assign>
+<msg timestamp="20190821 09:23:19.526" level="INFO">Running command 'aws s3api --endpoint-url http://s3g:9878 create-bucket --bucket bucket-test123 2&gt;&amp;1'.</msg>
+<msg timestamp="20190821 09:23:21.990" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190821 09:23:21.990" level="INFO">${result} = 
+An error occurred (500) when calling the CreateBucket operation (reached max retries: 4): Internal Server Error</msg>
+<status status="PASS" endtime="20190821 09:23:21.990" starttime="20190821 09:23:19.523"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${rc} &gt; 0</arg>
+</arguments>
+<status status="PASS" endtime="20190821 09:23:21.992" starttime="20190821 09:23:21.991"></status>
+</kw>
+<status status="PASS" endtime="20190821 09:23:21.992" critical="yes" starttime="20190821 09:23:17.612"></status>
+</test>
+<doc>Smoke test to start cluster with docker-compose environments.</doc>
+<status status="FAIL" endtime="20190821 09:23:21.993" starttime="20190821 09:22:46.719"></status>
+</suite>
+<status status="FAIL" endtime="20190821 09:23:21.998" starttime="20190821 09:22:35.759"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="8" pass="1">Critical Tests</stat>
+<stat fail="8" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="8" id="s1" name="ozonesecure-security" pass="1">ozonesecure-security</stat>
+<stat fail="7" id="s1-s1" name="Ozone-Secure-Fs" pass="0">ozonesecure-security.Ozone-Secure-Fs</stat>
+<stat fail="1" id="s1-s2" name="Ozone-Secure-S3" pass="1">ozonesecure-security.Ozone-Secure-S3</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
