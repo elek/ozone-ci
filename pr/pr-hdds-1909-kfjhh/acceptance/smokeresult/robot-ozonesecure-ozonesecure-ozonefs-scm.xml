@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190823 23:37:15.036" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/ozonefs/ozonefs.robot" id="s1" name="ozonesecure-ozonefs">
+<test id="s1-t1" name="Create volume and bucket">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume create o3://om/fstest --quota 100TB</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:15.088" level="INFO">Running command 'ozone sh volume create o3://om/fstest --quota 100TB 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:17.227" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:17.227" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:17.227" starttime="20190823 23:37:15.086"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:17.228" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:17 INFO  RpcClient:295 - Creating Volume: fstest, with testuser/scm@EXAMPLE.COM as owner and quota set to 109951162777600 bytes.</msg>
+<status status="PASS" endtime="20190823 23:37:17.228" starttime="20190823 23:37:17.227"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:17.229" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:17.229" starttime="20190823 23:37:17.228"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:17.229" starttime="20190823 23:37:15.085"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume create o3://om/fstest2 --quota 100TB</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:17.231" level="INFO">Running command 'ozone sh volume create o3://om/fstest2 --quota 100TB 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:19.481" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:19.481" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:19.481" starttime="20190823 23:37:17.230"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:19.483" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:19 INFO  RpcClient:295 - Creating Volume: fstest2, with testuser/scm@EXAMPLE.COM as owner and quota set to 109951162777600 bytes.</msg>
+<status status="PASS" endtime="20190823 23:37:19.483" starttime="20190823 23:37:19.482"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:19.483" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:19.484" starttime="20190823 23:37:19.483"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:19.484" starttime="20190823 23:37:17.229"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh bucket create o3://om/fstest/bucket1</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:19.486" level="INFO">Running command 'ozone sh bucket create o3://om/fstest/bucket1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:22.010" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:22.010" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:22.011" starttime="20190823 23:37:19.484"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:22.012" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:21 INFO  RpcClient:432 - Creating Bucket: fstest/bucket1, with Versioning false and Storage Type set to DISK and Encryption set to false </msg>
+<status status="PASS" endtime="20190823 23:37:22.013" starttime="20190823 23:37:22.011"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:22.014" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:22.014" starttime="20190823 23:37:22.013"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:22.014" starttime="20190823 23:37:19.484"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh bucket create o3://om/fstest/bucket2</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:22.018" level="INFO">Running command 'ozone sh bucket create o3://om/fstest/bucket2 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:24.596" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:24.596" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:24.596" starttime="20190823 23:37:22.016"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:24.598" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:24 INFO  RpcClient:432 - Creating Bucket: fstest/bucket2, with Versioning false and Storage Type set to DISK and Encryption set to false </msg>
+<status status="PASS" endtime="20190823 23:37:24.598" starttime="20190823 23:37:24.597"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:24.598" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:24.599" starttime="20190823 23:37:24.598"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:24.599" starttime="20190823 23:37:22.015"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh bucket create o3://om/fstest2/bucket3</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:24.601" level="INFO">Running command 'ozone sh bucket create o3://om/fstest2/bucket3 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:27.117" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:27.117" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:27.117" starttime="20190823 23:37:24.600"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:27.118" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:27 INFO  RpcClient:432 - Creating Bucket: fstest2/bucket3, with Versioning false and Storage Type set to DISK and Encryption set to false </msg>
+<status status="PASS" endtime="20190823 23:37:27.119" starttime="20190823 23:37:27.118"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:27.119" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:27.119" starttime="20190823 23:37:27.119"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:27.120" starttime="20190823 23:37:24.599"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:27.120" critical="yes" starttime="20190823 23:37:15.085"></status>
+</test>
+<test id="s1-t2" name="Check volume from ozonefs">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone fs -ls o3fs://bucket1.fstest/</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:27.123" level="INFO">Running command 'ozone fs -ls o3fs://bucket1.fstest/ 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:29.826" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190823 23:37:29.827" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:29.827" starttime="20190823 23:37:27.122"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:29.828" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release</msg>
+<status status="PASS" endtime="20190823 23:37:29.829" starttime="20190823 23:37:29.828"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:29.830" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190823 23:37:29.830" starttime="20190823 23:37:29.829"></status>
+</kw>
+<msg timestamp="20190823 23:37:29.830" level="INFO">${result} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:29.830" starttime="20190823 23:37:27.121"></status>
+</kw>
+<status status="PASS" endtime="20190823 23:37:29.831" critical="yes" starttime="20190823 23:37:27.120"></status>
+</test>
+<test id="s1-t3" name="Run ozoneFS tests">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone fs -mkdir -p o3fs://bucket1.fstest/testdir/deep</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190823 23:37:29.835" level="INFO">Running command 'ozone fs -mkdir -p o3fs://bucket1.fstest/testdir/deep 2&gt;&amp;1'.</msg>
+<msg timestamp="20190823 23:37:32.609" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190823 23:37:32.609" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190823 23:37:32.610" starttime="20190823 23:37:29.833"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190823 23:37:32.611" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 1 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 2 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 3 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 4 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 5 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 6 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 7 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 8 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: org.apache.hadoop.ipc.RemoteException(java.lang.NullPointerException): java.lang.NullPointerException
+	at org.apache.hadoop.ozone.om.helpers.OzoneAclUtil.checkAclRights(OzoneAclUtil.java:132)
+	at org.apache.hadoop.ozone.om.BucketManagerImpl.checkAccess(BucketManagerImpl.java:570)
+	at org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer.checkAccess(OzoneNativeAuthorizer.java:86)
+	at org.apache.hadoop.ozone.om.OzoneManager.checkAcls(OzoneManager.java:1811)
+	at org.apache.hadoop.ozone.om.request.OMClientRequest.checkAcls(OMClientRequest.java:135)
+	at org.apache.hadoop.ozone.om.request.file.OMDirectoryCreateRequest.validateAndUpdateCache(OMDirectoryCreateRequest.java:133)
+	at org.apache.hadoop.ozone.protocolPB.OzoneManagerProtocolServerSideTranslatorPB.submitRequest(OzoneManagerProtocolServerSideTranslatorPB.java:133)
+	at org.apache.hadoop.ozone.protocol.proto.OzoneManagerProtocolProtos$OzoneManagerService$2.callBlockingMethod(OzoneManagerProtocolProtos.java)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Server$ProtoBufRpcInvoker.call(ProtobufRpcEngine.java:524)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:1025)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:876)
+	at org.apache.hadoop.ipc.Server$RpcCall.run(Server.java:822)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/javax.security.auth.Subject.doAs(Subject.java:423)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:2682)
+, while invoking $Proxy13.submitRequest over nodeId=null,nodeAddress=om:9862 after 9 failover attempts. Trying to failover immediately.
+2019-08-23 23:37:32 ERROR OMFailoverProxyProvider:261 - Failed to connect to OM. Attempted 10 retries and 10 failovers
+mkdir: java.lang.NullPointerException</msg>
+<status status="PASS" endtime="20190823 23:37:32.612" starttime="20190823 23:37:32.611"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190823 23:37:32.612" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190823 23:37:32.613" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190823 23:37:32.613" starttime="20190823 23:37:32.612"></status>
+</kw>
+<status status="FAIL" endtime="20190823 23:37:32.613" starttime="20190823 23:37:29.833"></status>
+</kw>
+<status status="FAIL" endtime="20190823 23:37:32.614" critical="yes" starttime="20190823 23:37:29.831">1 != 0</status>
+</test>
+<doc>Ozonefs test</doc>
+<status status="FAIL" endtime="20190823 23:37:32.615" starttime="20190823 23:37:15.037"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="2">Critical Tests</stat>
+<stat fail="1" pass="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="ozonesecure-ozonefs" pass="2">ozonesecure-ozonefs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
