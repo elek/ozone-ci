@@ -1,0 +1,28 @@
++ export MAVEN_OPTS=-Xmx4096m
++ MAVEN_OPTS=-Xmx4096m
++ REPORT_DIR=/tmp/log/dev/dev-check-20190824-d9rj8/unit
++ mkdir -p /tmp/log/dev/dev-check-20190824-d9rj8/unit
++ source /workdir/hadoop-ozone/dev-support/checks/_mvn_unit_report.sh
+++ ++ find . -name xargs 'TEST*.xml' -n1 -print0-0 
+grep -l -E '<failure|<error'
+++ awk -F/ '{sub("TEST-JUNIT_TEST_OUTPUT_DIR",""); sub(".xml",""); print $NF}'
+++ tee /tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.txt
++++ find . -name surefire-reports
+++ export SUMMARY_FILE=/tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.md
+++ SUMMARY_FILE=/tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.md
+++ printf '   Failing tests: \n\n'
++++ +++ grep -v output
+find /tmp/log/dev/dev-check-20190824-d9rj8/unit -name '*.txt'
+++ for TEST_RESULT_FILE in $(find "$REPORT_DIR" -name "*.txt" | grep -v output)
++++ cat /tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.txt
++++ grep FAILURE
++++ grep 'Tests run'
++++ awk '{print $18}'
++++ sort
++++ uniq
+++ FAILURES=
+++ printf '\n\n'
+++ wc -l /tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.txt
+++ awk '{print $1}'
++ [[ -s /tmp/log/dev/dev-check-20190824-d9rj8/unit/summary.txt ]]
++ exit 0
