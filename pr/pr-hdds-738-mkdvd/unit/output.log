@@ -1,0 +1,29 @@
++ export MAVEN_OPTS=-Xmx4096m
++ MAVEN_OPTS=-Xmx4096m
++ REPORT_DIR=/tmp/log/pr/pr-hdds-738-mkdvd/unit
++ mkdir -p /tmp/log/pr/pr-hdds-738-mkdvd/unit
++ source /workdir/hadoop-ozone/dev-support/checks/_mvn_unit_report.sh
+++ ++ find . -name 'TEST*.xml' -print0
+xargs -n1 -0 grep -l -E '<failure|<error'
+++ awk -F/ '{sub("TEST-JUNIT_TEST_OUTPUT_DIR",""); sub(".xml",""); print $NF}'
+++ tee /tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.txt
++++ ++ IFS=
+++ read -r -d find '' . dir-name 
+surefire-reports -print0
+++ export SUMMARY_FILE=/tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.md
+++ SUMMARY_FILE=/tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.md
+++ printf '# Failing tests: \n\n'
++++ +++ grep -v output
+find /tmp/log/pr/pr-hdds-738-mkdvd/unit -name '*.txt'
+++ for TEST_RESULT_FILE in $(find "$REPORT_DIR" -name "*.txt" | grep -v output)
++++ +++ grep 'Tests run'
+grep FAILURE /tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.txt
++++ awk '{print $18}'
++++ sort
++++ uniq
+++ FAILURES=
+++ printf '\n\n'
+++ wc -l /tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.txt
+++ awk '{print $1}'
++ [[ -s /tmp/log/pr/pr-hdds-738-mkdvd/unit/summary.txt ]]
++ exit 0
