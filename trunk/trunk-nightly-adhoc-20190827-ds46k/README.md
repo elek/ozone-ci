@@ -6,19 +6,31 @@
    * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/acceptance)
 
 
+## integration check is finished with failure status
+
+   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/integration/output.log)
+   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/integration)
+   * [summary.md](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/integration/summary.md)
+   * [summary.txt](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/integration/summary.txt)
+
+# Failing tests: 
+
+ * [org.apache.hadoop.ozone.client.rpc.TestFailureHandlingByClient](hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestFailureHandlingByClient.txt) ([output](hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestFailureHandlingByClient-output.txt/)) * [org.apache.hadoop.hdds.scm.pipeline.TestNode2PipelineMap](hadoop-ozone/integration-test/org.apache.hadoop.hdds.scm.pipeline.TestNode2PipelineMap.txt) ([output](hadoop-ozone/integration-test/org.apache.hadoop.hdds.scm.pipeline.TestNode2PipelineMap-output.txt/)) * [org.apache.hadoop.ozone.ozShell.TestOzoneShell](hadoop-ozone/integration-test/org.apache.hadoop.ozone.ozShell.TestOzoneShell.txt) ([output](hadoop-ozone/integration-test/org.apache.hadoop.ozone.ozShell.TestOzoneShell-output.txt/)) * [org.apache.hadoop.ozone.client.rpc.TestCommitWatcher](hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestCommitWatcher.txt) ([output](hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestCommitWatcher-output.txt/))
+
+
 
 # Tests with success status
-
-## author check is finished with success status
-
-   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/author/output.log)
-   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/author)
-
 
 ## rat check is finished with success status
 
    * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/rat/output.log)
    * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/rat)
+
+
+## checkstyle check is finished with success status
+
+   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkstyle/output.log)
+   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkstyle)
 
 
 ## findbugs check is finished with success status
@@ -27,22 +39,22 @@
    * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/findbugs)
 
 
-## build check is finished with success status
-
-   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/build/output.log)
-   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/build)
-
-
 ## checkout check is finished with success status
 
    * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkout/output.log)
    * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkout)
 
 
-## checkstyle check is finished with success status
+## build check is finished with success status
 
-   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkstyle/output.log)
-   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/checkstyle)
+   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/build/output.log)
+   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/build)
+
+
+## author check is finished with success status
+
+   * [output](https://raw.githubusercontent.com/elek/ozone-ci/master/trunk/trunk-nightly-adhoc-20190827-ds46k/author/output.log)
+   * [all collected results](https://github.com/elek/ozone-ci/tree/master/trunk/trunk-nightly-adhoc-20190827-ds46k/author)
 
 
 ## unit check is finished with success status
