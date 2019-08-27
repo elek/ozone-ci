@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190827 17:25:27.455" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop27-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190827 17:25:27.513" level="INFO">${random} = 58837</msg>
+<status status="PASS" endtime="20190827 17:25:27.513" starttime="20190827 17:25:27.513"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190827 17:25:27.515" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-58837 2&gt;&amp;1'.</msg>
+<msg timestamp="20190827 17:25:30.896" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190827 17:25:30.896" level="INFO">${output} = 2019-08-27 17:25:30 ERROR OzoneClientAdapterFactory:122 - Can't initialize the ozoneClientAdapter
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0...</msg>
+<status status="PASS" endtime="20190827 17:25:30.896" starttime="20190827 17:25:27.514"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190827 17:25:30.897" level="INFO">2019-08-27 17:25:30 ERROR OzoneClientAdapterFactory:122 - Can't initialize the ozoneClientAdapter
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterFactory.lambda$createAdapter$0(OzoneClientAdapterFactory.java:52)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterFactory.createAdapter(OzoneClientAdapterFactory.java:116)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterFactory.createAdapter(OzoneClientAdapterFactory.java:49)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.createAdapter(BasicOzoneFileSystem.java:180)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2667)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:93)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:2701)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:2683)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:372)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:295)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:325)
+	at org.apache.hadoop.fs.shell.CommandWithDestination.getRemoteDestination(CommandWithDestination.java:188)
+	at org.apache.hadoop.fs.shell.CopyCommands$Put.processOptions(CopyCommands.java:237)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:164)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:287)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:84)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:340)
+Caused by: BUCKET_NOT_FOUND org.apache.hadoop.ozone.om.exceptions.OMException: Bucket not found
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.handleError(OzoneManagerProtocolClientSideTranslatorPB.java:725)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.getBucketInfo(OzoneManagerProtocolClientSideTranslatorPB.java:595)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.getBucketDetails(RpcClient.java:560)
+	at org.apache.hadoop.ozone.client.OzoneVolume.getBucket(OzoneVolume.java:230)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:141)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:101)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:86)
+	... 23 more
+put: Can't initialize the OzoneClientAdapter implementation</msg>
+<status status="PASS" endtime="20190827 17:25:30.897" starttime="20190827 17:25:30.897"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190827 17:25:30.898" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190827 17:25:30.898" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190827 17:25:30.898" starttime="20190827 17:25:30.897"></status>
+</kw>
+<status status="FAIL" endtime="20190827 17:25:30.898" starttime="20190827 17:25:27.513"></status>
+</kw>
+<status status="FAIL" endtime="20190827 17:25:30.899" critical="yes" starttime="20190827 17:25:27.512">1 != 0</status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="FAIL" endtime="20190827 17:25:30.899" starttime="20190827 17:25:27.457"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="hadoop27-hadoopo3fs" pass="0">hadoop27-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
