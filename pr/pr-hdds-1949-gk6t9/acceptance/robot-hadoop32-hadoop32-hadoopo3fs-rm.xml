@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190828 11:59:42.029" generator="Robot 3.1.1 (Python 2.7.5 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop32-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190828 11:59:42.085" level="INFO">${random} = 27267</msg>
+<status status="PASS" endtime="20190828 11:59:42.085" starttime="20190828 11:59:42.085"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 11:59:42.088" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-27267 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 11:59:47.078" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 11:59:47.078" level="INFO">${output} = 2019-08-28 11:59:44 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-28 11:59:44 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190828 11:59:47.078" starttime="20190828 11:59:42.086"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 11:59:47.080" level="INFO">2019-08-28 11:59:44 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-28 11:59:44 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019-08-28 11:59:44 INFO  MetricsSystemImpl:191 - XceiverClientMetrics metrics system started
+2019-08-28 11:59:46 INFO  GrpcClientProtocolClient:255 - client-A4DEE8F2E241-&gt;027d8fc8-3a7f-494e-a667-7077909ca04c: receive RaftClientReply:client-A4DEE8F2E241-&gt;027d8fc8-3a7f-494e-a667-7077909ca04c@group-B48B378AAAE4, cid=0, SUCCESS, logIndex=1, commits[027d8fc8-3a7f-494e-a667-7077909ca04c:c2]
+2019-08-28 11:59:46 INFO  GrpcClientProtocolClient:255 - client-A4DEE8F2E241-&gt;027d8fc8-3a7f-494e-a667-7077909ca04c: receive RaftClientReply:client-A4DEE8F2E241-&gt;027d8fc8-3a7f-494e-a667-7077909ca04c@group-B48B378AAAE4, cid=1, SUCCESS, logIndex=3, commits[027d8fc8-3a7f-494e-a667-7077909ca04c:c4]</msg>
+<status status="PASS" endtime="20190828 11:59:47.080" starttime="20190828 11:59:47.079"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 11:59:47.080" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 11:59:47.081" starttime="20190828 11:59:47.080"></status>
+</kw>
+<msg timestamp="20190828 11:59:47.081" level="INFO">${result} = 2019-08-28 11:59:44 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-28 11:59:44 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190828 11:59:47.081" starttime="20190828 11:59:42.085"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -ls o3fs://bucket1.vol1/</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 11:59:47.084" level="INFO">Running command 'hdfs dfs -ls o3fs://bucket1.vol1/ 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 11:59:49.654" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 11:59:49.654" level="INFO">${output} = Found 3 items
+-rw-rw-rw-   1 hadoop hadoop    1020106 2019-08-28 11:59 o3fs://bucket1.vol1/key1
+-rw-rw-rw-   1 hadoop hadoop      22125 1970-03-26 22:59 o3fs://bucket1.vol1/ozone-27267
+drwxrwxrwx   - ...</msg>
+<status status="PASS" endtime="20190828 11:59:49.655" starttime="20190828 11:59:47.082"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 11:59:49.656" level="INFO">Found 3 items
+-rw-rw-rw-   1 hadoop hadoop    1020106 2019-08-28 11:59 o3fs://bucket1.vol1/key1
+-rw-rw-rw-   1 hadoop hadoop      22125 1970-03-26 22:59 o3fs://bucket1.vol1/ozone-27267
+drwxrwxrwx   - hadoop hadoop          0 2019-08-28 11:59 o3fs://bucket1.vol1/user</msg>
+<status status="PASS" endtime="20190828 11:59:49.656" starttime="20190828 11:59:49.655"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 11:59:49.657" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 11:59:49.657" starttime="20190828 11:59:49.656"></status>
+</kw>
+<msg timestamp="20190828 11:59:49.658" level="INFO">${result} = Found 3 items
+-rw-rw-rw-   1 hadoop hadoop    1020106 2019-08-28 11:59 o3fs://bucket1.vol1/key1
+-rw-rw-rw-   1 hadoop hadoop      22125 1970-03-26 22:59 o3fs://bucket1.vol1/ozone-27267
+drwxrwxrwx   - ...</msg>
+<status status="PASS" endtime="20190828 11:59:49.658" starttime="20190828 11:59:47.081"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${PREFIX}-${random}</arg>
+</arguments>
+<status status="PASS" endtime="20190828 11:59:49.659" starttime="20190828 11:59:49.658"></status>
+</kw>
+<status status="PASS" endtime="20190828 11:59:49.659" critical="yes" starttime="20190828 11:59:42.084"></status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="PASS" endtime="20190828 11:59:49.660" starttime="20190828 11:59:42.030"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="hadoop32-hadoopo3fs" pass="1">hadoop32-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
