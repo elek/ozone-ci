@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190828 18:55:12.256" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/topology/scmcli.robot" id="s1" name="ozone-topology-scmcli">
+<test id="s1-t1" name="Run printTopology">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone scmcli printTopology</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 18:55:12.317" level="INFO">Running command 'ozone scmcli printTopology 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 18:55:13.833" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 18:55:13.833" level="INFO">${output} = State = HEALTHY
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)    /rack1
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)    /rack1
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topo...</msg>
+<status status="PASS" endtime="20190828 18:55:13.833" starttime="20190828 18:55:12.315"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 18:55:13.835" level="INFO">State = HEALTHY
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)    /rack1
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)    /rack1
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topology_net)    /rack1
+ 10.5.0.7(ozone-topology_datanode_4_1.ozone-topology_net)    /rack2</msg>
+<status status="PASS" endtime="20190828 18:55:13.835" starttime="20190828 18:55:13.834"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 18:55:13.836" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 18:55:13.836" starttime="20190828 18:55:13.836"></status>
+</kw>
+<msg timestamp="20190828 18:55:13.837" level="INFO">${output} = State = HEALTHY
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)    /rack1
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)    /rack1
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topo...</msg>
+<status status="PASS" endtime="20190828 18:55:13.837" starttime="20190828 18:55:12.314"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${output}</arg>
+<arg>10.5.0.7(ozone-topology_datanode_4_1.ozone-topology_net)</arg>
+<arg>/rack2</arg>
+</arguments>
+<status status="PASS" endtime="20190828 18:55:13.838" starttime="20190828 18:55:13.837"></status>
+</kw>
+<status status="PASS" endtime="20190828 18:55:13.838" critical="yes" starttime="20190828 18:55:12.314"></status>
+</test>
+<test id="s1-t2" name="Run printTopology -o">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone scmcli printTopology -o</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 18:55:13.842" level="INFO">Running command 'ozone scmcli printTopology -o 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 18:55:15.315" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 18:55:15.315" level="INFO">${output} = State = HEALTHY
+Location: /rack1
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topolog...</msg>
+<status status="PASS" endtime="20190828 18:55:15.315" starttime="20190828 18:55:13.840"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 18:55:15.316" level="INFO">State = HEALTHY
+Location: /rack1
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topology_net)
+Location: /rack2
+ 10.5.0.7(ozone-topology_datanode_4_1.ozone-topology_net)</msg>
+<status status="PASS" endtime="20190828 18:55:15.316" starttime="20190828 18:55:15.315"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 18:55:15.317" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 18:55:15.317" starttime="20190828 18:55:15.317"></status>
+</kw>
+<msg timestamp="20190828 18:55:15.318" level="INFO">${output} = State = HEALTHY
+Location: /rack1
+ 10.5.0.5(ozone-topology_datanode_2_1.ozone-topology_net)
+ 10.5.0.6(ozone-topology_datanode_3_1.ozone-topology_net)
+ 10.5.0.4(ozone-topology_datanode_1_1.ozone-topolog...</msg>
+<status status="PASS" endtime="20190828 18:55:15.318" starttime="20190828 18:55:13.839"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${output}</arg>
+<arg>Location: /rack2</arg>
+</arguments>
+<status status="PASS" endtime="20190828 18:55:15.318" starttime="20190828 18:55:15.318"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${output}</arg>
+<arg>10.5.0.7(ozone-topology_datanode_4_1.ozone-topology_net)</arg>
+</arguments>
+<status status="PASS" endtime="20190828 18:55:15.319" starttime="20190828 18:55:15.319"></status>
+</kw>
+<status status="PASS" endtime="20190828 18:55:15.319" critical="yes" starttime="20190828 18:55:13.838"></status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="PASS" endtime="20190828 18:55:15.321" starttime="20190828 18:55:12.257"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="ozone-topology-scmcli" pass="2">ozone-topology-scmcli</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
