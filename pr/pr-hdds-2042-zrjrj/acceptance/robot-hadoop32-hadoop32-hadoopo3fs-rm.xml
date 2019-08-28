@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190828 19:19:48.599" generator="Robot 3.1.1 (Python 2.7.5 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop32-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190828 19:19:48.655" level="INFO">${random} = 00666</msg>
+<status status="PASS" endtime="20190828 19:19:48.655" starttime="20190828 19:19:48.654"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 19:19:48.657" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-00666 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 19:19:50.234" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190828 19:19:50.234" level="INFO">${output} = 2019-08-28 19:19:50 ERROR OzoneClientFactory:192 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.S...</msg>
+<status status="PASS" endtime="20190828 19:19:50.234" starttime="20190828 19:19:48.656"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 19:19:50.235" level="INFO">2019-08-28 19:19:50 ERROR OzoneClientFactory:192 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:155)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:152)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:352)
+	at org.apache.hadoop.fs.shell.CommandWithDestination.getRemoteDestination(CommandWithDestination.java:195)
+	at org.apache.hadoop.fs.shell.CopyCommands$Put.processOptions(CopyCommands.java:265)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:176)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:327)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:90)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:390)
+Caused by: java.net.UnknownHostException: om
+	... 26 more
+put: om</msg>
+<status status="PASS" endtime="20190828 19:19:50.235" starttime="20190828 19:19:50.235"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 19:19:50.236" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190828 19:19:50.236" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190828 19:19:50.236" starttime="20190828 19:19:50.236"></status>
+</kw>
+<status status="FAIL" endtime="20190828 19:19:50.237" starttime="20190828 19:19:48.655"></status>
+</kw>
+<status status="FAIL" endtime="20190828 19:19:50.237" critical="yes" starttime="20190828 19:19:48.654">1 != 0</status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="FAIL" endtime="20190828 19:19:50.238" starttime="20190828 19:19:48.600"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="hadoop32-hadoopo3fs" pass="0">hadoop32-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

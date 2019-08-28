@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190828 19:02:46.381" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/auditparser" id="s1" name="ozone-auditparser">
+<suite source="/opt/hadoop/smoketest/auditparser/auditparser.robot" id="s1-s1" name="Auditparser">
+<test id="s1-s1-t1" name="Initiating freon to generate data">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 19:02:46.477" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 19:04:40.115" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190828 19:04:40.115" level="INFO">${output} = Connection refused</msg>
+<status status="PASS" endtime="20190828 19:04:40.115" starttime="20190828 19:02:46.474"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 19:04:40.117" level="INFO">Connection refused</msg>
+<status status="PASS" endtime="20190828 19:04:40.117" starttime="20190828 19:04:40.116"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 19:04:40.118" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190828 19:04:40.119" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190828 19:04:40.119" starttime="20190828 19:04:40.117"></status>
+</kw>
+<status status="FAIL" endtime="20190828 19:04:40.122" starttime="20190828 19:02:46.473"></status>
+</kw>
+<status status="FAIL" endtime="20190828 19:04:40.122" critical="yes" starttime="20190828 19:02:46.472">255 != 0</status>
+</test>
+<test id="s1-s1-t2" name="Testing audit parser">
+<kw name="Get Environment Variable" library="OperatingSystem">
+<doc>Returns the value of an environment variable with the given name.</doc>
+<arguments>
+<arg>HADOOP_LOG_DIR</arg>
+<arg>/var/log/hadoop</arg>
+</arguments>
+<assign>
+<var>${logdir}</var>
+</assign>
+<msg timestamp="20190828 19:04:40.125" level="INFO">${logdir} = /var/log/hadoop</msg>
+<status status="PASS" endtime="20190828 19:04:40.125" starttime="20190828 19:04:40.124"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ls -t "${logdir}" | grep om-audit | head -1</arg>
+</arguments>
+<assign>
+<var>${logfile}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 19:04:40.128" level="INFO">Running command 'ls -t "/var/log/hadoop" | grep om-audit | head -1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 19:04:40.184" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 19:04:40.184" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190828 19:04:40.184" starttime="20190828 19:04:40.126"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 19:04:40.185" level="INFO"></msg>
+<status status="PASS" endtime="20190828 19:04:40.186" starttime="20190828 19:04:40.185"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 19:04:40.187" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 19:04:40.187" starttime="20190828 19:04:40.186"></status>
+</kw>
+<msg timestamp="20190828 19:04:40.187" level="INFO">${logfile} = </msg>
+<status status="PASS" endtime="20190828 19:04:40.188" starttime="20190828 19:04:40.125"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" load "${logdir}/${logfile}"</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 19:04:40.191" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" load "/var/log/hadoop/" 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 19:04:41.097" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 19:04:41.097" level="INFO">${output} = 2019-08-28 19:04:41 ERROR DatabaseHelper:138 - /var/log/hadoop (Is a directory)
+Failed to load /var/log/hadoop/</msg>
+<status status="PASS" endtime="20190828 19:04:41.097" starttime="20190828 19:04:40.189"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 19:04:41.099" level="INFO">2019-08-28 19:04:41 ERROR DatabaseHelper:138 - /var/log/hadoop (Is a directory)
+Failed to load /var/log/hadoop/</msg>
+<status status="PASS" endtime="20190828 19:04:41.099" starttime="20190828 19:04:41.098"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 19:04:41.100" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 19:04:41.100" starttime="20190828 19:04:41.099"></status>
+</kw>
+<status status="PASS" endtime="20190828 19:04:41.100" starttime="20190828 19:04:40.188"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone auditparser "${auditworkdir}/audit.db" template top5cmds</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190828 19:04:41.103" level="INFO">Running command 'ozone auditparser "/tmp//audit.db" template top5cmds 2&gt;&amp;1'.</msg>
+<msg timestamp="20190828 19:04:41.876" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190828 19:04:41.877" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190828 19:04:41.877" starttime="20190828 19:04:41.101"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190828 19:04:41.878" level="INFO"></msg>
+<status status="PASS" endtime="20190828 19:04:41.878" starttime="20190828 19:04:41.877"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190828 19:04:41.878" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190828 19:04:41.878" starttime="20190828 19:04:41.878"></status>
+</kw>
+<msg timestamp="20190828 19:04:41.879" level="INFO">${result} = </msg>
+<status status="PASS" endtime="20190828 19:04:41.879" starttime="20190828 19:04:41.100"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>ALLOCATE_KEY</arg>
+</arguments>
+<msg timestamp="20190828 19:04:41.880" level="FAIL">'' does not contain 'ALLOCATE_KEY'</msg>
+<status status="FAIL" endtime="20190828 19:04:41.880" starttime="20190828 19:04:41.879"></status>
+</kw>
+<status status="FAIL" endtime="20190828 19:04:41.880" critical="yes" starttime="20190828 19:04:40.123">'' does not contain 'ALLOCATE_KEY'</status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="FAIL" endtime="20190828 19:04:41.881" starttime="20190828 19:02:46.416"></status>
+</suite>
+<status status="FAIL" endtime="20190828 19:04:41.883" starttime="20190828 19:02:46.382"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="ozone-auditparser" pass="0">ozone-auditparser</stat>
+<stat fail="2" id="s1-s1" name="Auditparser" pass="0">ozone-auditparser.Auditparser</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
