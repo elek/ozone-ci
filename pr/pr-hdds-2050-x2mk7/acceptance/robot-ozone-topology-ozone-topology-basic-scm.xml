@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190829 01:57:34.164" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/basic/basic.robot" id="s1" name="ozone-topology-basic">
+<test id="s1-t1" name="Check webui static resources">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Kinit HTTP user</arg>
+</arguments>
+<status status="PASS" endtime="20190829 01:57:34.213" starttime="20190829 01:57:34.212"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190829 01:57:34.215" level="INFO">Running command 'curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js 2&gt;&amp;1'.</msg>
+<msg timestamp="20190829 01:57:34.231" level="INFO">${rc} = 7</msg>
+<msg timestamp="20190829 01:57:34.231" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190829 01:57:34.231" starttime="20190829 01:57:34.213"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190829 01:57:34.232" level="INFO"></msg>
+<status status="PASS" endtime="20190829 01:57:34.233" starttime="20190829 01:57:34.232"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190829 01:57:34.233" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190829 01:57:34.234" level="FAIL">7 != 0</msg>
+<status status="FAIL" endtime="20190829 01:57:34.234" starttime="20190829 01:57:34.233"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:57:34.235" starttime="20190829 01:57:34.213"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:57:34.235" critical="yes" starttime="20190829 01:57:34.212">7 != 0</status>
+</test>
+<test id="s1-t2" name="Start freon testing">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190829 01:57:34.239" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190829 01:59:26.369" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190829 01:59:26.369" level="INFO">${output} = Connection refused</msg>
+<status status="PASS" endtime="20190829 01:59:26.369" starttime="20190829 01:57:34.237"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190829 01:59:26.371" level="INFO">Connection refused</msg>
+<status status="PASS" endtime="20190829 01:59:26.371" starttime="20190829 01:59:26.370"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190829 01:59:26.372" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190829 01:59:26.372" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190829 01:59:26.373" starttime="20190829 01:59:26.371"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:59:26.373" starttime="20190829 01:57:34.236"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:59:26.373" critical="yes" starttime="20190829 01:57:34.236">255 != 0</status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="FAIL" endtime="20190829 01:59:26.375" starttime="20190829 01:57:34.165"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="ozone-topology-basic" pass="0">ozone-topology-basic</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

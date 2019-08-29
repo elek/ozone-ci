@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190829 01:34:47.836" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/basic/basic.robot" id="s1" name="ozone-basic">
+<test id="s1-t1" name="Check webui static resources">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Kinit HTTP user</arg>
+</arguments>
+<status status="PASS" endtime="20190829 01:34:47.886" starttime="20190829 01:34:47.885"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190829 01:34:47.888" level="INFO">Running command 'curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js 2&gt;&amp;1'.</msg>
+<msg timestamp="20190829 01:34:47.907" level="INFO">${rc} = 7</msg>
+<msg timestamp="20190829 01:34:47.907" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20190829 01:34:47.907" starttime="20190829 01:34:47.886"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190829 01:34:47.909" level="INFO"></msg>
+<status status="PASS" endtime="20190829 01:34:47.909" starttime="20190829 01:34:47.908"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190829 01:34:47.910" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190829 01:34:47.911" level="FAIL">7 != 0</msg>
+<status status="FAIL" endtime="20190829 01:34:47.911" starttime="20190829 01:34:47.909"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:34:47.911" starttime="20190829 01:34:47.886"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:34:47.912" critical="yes" starttime="20190829 01:34:47.885">7 != 0</status>
+</test>
+<test id="s1-t2" name="Start freon testing">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190829 01:34:47.916" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190829 01:36:40.038" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190829 01:36:40.038" level="INFO">${output} = 2019-08-29 01:34:48 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-29 01:34:49 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190829 01:36:40.038" starttime="20190829 01:34:47.914"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190829 01:36:40.040" level="INFO">2019-08-29 01:34:48 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-29 01:34:49 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019-08-29 01:34:49 INFO  MetricsSystemImpl:191 - ozone-freon metrics system started
+2019-08-29 01:34:50 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:51 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:52 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:53 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:54 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:55 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:56 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:57 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:58 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:34:59 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:00 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:01 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:02 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:03 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:04 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:05 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:06 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:07 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:08 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:09 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:09 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 1 failover attempts. Trying to failover immediately.
+2019-08-29 01:35:10 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:11 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:12 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:13 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:14 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:15 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:16 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:17 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:18 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:19 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:19 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 2 failover attempts. Trying to failover immediately.
+2019-08-29 01:35:20 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:21 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:22 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:23 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:24 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:25 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:26 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:27 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:28 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:29 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:29 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 3 failover attempts. Trying to failover immediately.
+2019-08-29 01:35:30 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:31 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:32 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:33 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:34 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:35 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:36 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:37 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:38 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:39 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:39 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 4 failover attempts. Trying to failover immediately.
+2019-08-29 01:35:40 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:41 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:42 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:43 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:44 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:45 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:46 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:47 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:48 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:49 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:49 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 5 failover attempts. Trying to failover immediately.
+2019-08-29 01:35:50 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:51 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:52 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:53 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:54 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:55 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:56 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:57 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:58 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:59 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:35:59 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 6 failover attempts. Trying to failover immediately.
+2019-08-29 01:36:00 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:01 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:02 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:03 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:04 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:05 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:06 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:07 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:08 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:09 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:09 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 7 failover attempts. Trying to failover immediately.
+2019-08-29 01:36:10 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:11 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:12 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:13 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:14 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:15 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:16 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:17 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:18 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:19 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:19 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 8 failover attempts. Trying to failover immediately.
+2019-08-29 01:36:20 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:21 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:22 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:23 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:24 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:25 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:26 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:27 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:28 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:29 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:29 INFO  RetryInvocationHandler:411 - com.google.protobuf.ServiceException: java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused, while invoking $Proxy20.submitRequest over nodeId=null,nodeAddress=om:9862 after 9 failover attempts. Trying to failover immediately.
+2019-08-29 01:36:30 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:31 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 1 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:32 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 2 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:33 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 3 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:34 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 4 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:35 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 5 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:36 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 6 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:37 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:38 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 8 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:39 INFO  Client:948 - Retrying connect to server: om/172.18.0.3:9862. Already tried 9 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)
+2019-08-29 01:36:39 ERROR OMFailoverProxyProvider:261 - Failed to connect to OM. Attempted 10 retries and 10 failovers
+2019-08-29 01:36:39 ERROR OzoneClientFactory:192 - Couldn't create RpcClient protocol exception: 
+java.net.ConnectException: Call From 8b38f11ceea5/172.18.0.6 to om:9862 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.apache.hadoop.net.NetUtils.wrapWithMessage(NetUtils.java:831)
+	at org.apache.hadoop.net.NetUtils.wrapException(NetUtils.java:755)
+	at org.apache.hadoop.ipc.Client.getRpcResponse(Client.java:1515)
+	at org.apache.hadoop.ipc.Client.call(Client.java:1457)
+	at org.apache.hadoop.ipc.Client.call(Client.java:1367)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:228)
+	at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:116)
+	at com.sun.proxy.$Proxy20.submitRequest(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:422)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invokeMethod(RetryInvocationHandler.java:165)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invoke(RetryInvocationHandler.java:157)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler$Call.invokeOnce(RetryInvocationHandler.java:95)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:359)
+	at com.sun.proxy.$Proxy20.submitRequest(Unknown Source)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.hadoop.hdds.tracing.TraceAllMethod.invoke(TraceAllMethod.java:66)
+	at com.sun.proxy.$Proxy20.submitRequest(Unknown Source)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.submitRequest(OzoneManagerProtocolClientSideTranslatorPB.java:331)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.getServiceList(OzoneManagerProtocolClientSideTranslatorPB.java:1162)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.getScmAddressForClient(RpcClient.java:239)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:158)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClient(OzoneClientFactory.java:75)
+	at org.apache.hadoop.ozone.freon.RandomKeyGenerator.init(RandomKeyGenerator.java:242)
+	at org.apache.hadoop.ozone.freon.RandomKeyGenerator.call(RandomKeyGenerator.java:264)
+	at org.apache.hadoop.ozone.freon.RandomKeyGenerator.call(RandomKeyGenerator.java:82)
+	at picocli.CommandLine.execute(CommandLine.java:1173)
+	at picocli.CommandLine.access$800(CommandLine.java:141)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1367)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:1335)
+	at picocli.CommandLine$AbstractParseResultHandler.handleParseResult(CommandLine.java:1243)
+	at picocli.CommandLine.parseWithHandlers(CommandLine.java:1526)
+	at picocli.CommandLine.parseWithHandler(CommandLine.java:1465)
+	at org.apache.hadoop.hdds.cli.GenericCli.execute(GenericCli.java:65)
+	at org.apache.hadoop.ozone.freon.Freon.execute(Freon.java:55)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.freon.Freon.main(Freon.java:81)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:779)
+	at org.apache.hadoop.net.SocketIOWithTimeout.connect(SocketIOWithTimeout.java:206)
+	at org.apache.hadoop.net.NetUtils.connect(NetUtils.java:531)
+	at org.apache.hadoop.ipc.Client$Connection.setupConnection(Client.java:690)
+	at org.apache.hadoop.ipc.Client$Connection.setupIOstreams(Client.java:794)
+	at org.apache.hadoop.ipc.Client$Connection.access$3700(Client.java:411)
+	at org.apache.hadoop.ipc.Client.getConnection(Client.java:1572)
+	at org.apache.hadoop.ipc.Client.call(Client.java:1403)
+	... 40 more
+Connection refused</msg>
+<status status="PASS" endtime="20190829 01:36:40.041" starttime="20190829 01:36:40.039"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190829 01:36:40.041" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190829 01:36:40.042" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190829 01:36:40.042" starttime="20190829 01:36:40.041"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:36:40.042" starttime="20190829 01:34:47.913"></status>
+</kw>
+<status status="FAIL" endtime="20190829 01:36:40.042" critical="yes" starttime="20190829 01:34:47.912">255 != 0</status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="FAIL" endtime="20190829 01:36:40.044" starttime="20190829 01:34:47.837"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="ozone-basic" pass="0">ozone-basic</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
