@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.hadoop.ozone.container.common.statemachine.commandhandler.TestCloseContainerCommandHandler
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 51.981 s <<< FAILURE! - in org.apache.hadoop.ozone.container.common.statemachine.commandhandler.TestCloseContainerCommandHandler
+testCloseContainerViaRatis(org.apache.hadoop.ozone.container.common.statemachine.commandhandler.TestCloseContainerCommandHandler)  Time elapsed: 9.368 s  <<< ERROR!
+org.apache.ratis.protocol.TimeoutIOException: deadline exceeded after 2972223193ns
+	at org.apache.ratis.grpc.GrpcUtil.tryUnwrapException(GrpcUtil.java:82)
+	at org.apache.ratis.grpc.GrpcUtil.unwrapException(GrpcUtil.java:75)
+	at org.apache.ratis.grpc.client.GrpcClientProtocolClient.blockingCall(GrpcClientProtocolClient.java:169)
+	at org.apache.ratis.grpc.client.GrpcClientProtocolClient.groupAdd(GrpcClientProtocolClient.java:138)
+	at org.apache.ratis.grpc.client.GrpcClientRpc.sendRequest(GrpcClientRpc.java:94)
+	at org.apache.ratis.client.impl.RaftClientImpl.sendRequest(RaftClientImpl.java:279)
+	at org.apache.ratis.client.impl.RaftClientImpl.groupAdd(RaftClientImpl.java:206)
+	at org.apache.hadoop.ozone.container.common.statemachine.commandhandler.TestCloseContainerCommandHandler.createContainer(TestCloseContainerCommandHandler.java:300)
+	at org.apache.hadoop.ozone.container.common.statemachine.commandhandler.TestCloseContainerCommandHandler.testCloseContainerViaRatis(TestCloseContainerCommandHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:365)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:273)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:238)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:159)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: DEADLINE_EXCEEDED: deadline exceeded after 2972223193ns
+	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls.toStatusRuntimeException(ClientCalls.java:233)
+	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls.getUnchecked(ClientCalls.java:214)
+	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls.blockingUnaryCall(ClientCalls.java:139)
+	at org.apache.ratis.proto.grpc.AdminProtocolServiceGrpc$AdminProtocolServiceBlockingStub.groupManagement(AdminProtocolServiceGrpc.java:274)
+	at org.apache.ratis.grpc.client.GrpcClientProtocolClient.lambda$groupAdd$3(GrpcClientProtocolClient.java:140)
+	at org.apache.ratis.grpc.client.GrpcClientProtocolClient.blockingCall(GrpcClientProtocolClient.java:167)
+	... 32 more
+
