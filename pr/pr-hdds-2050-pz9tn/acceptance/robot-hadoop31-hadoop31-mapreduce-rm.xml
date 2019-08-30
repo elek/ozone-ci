@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190830 00:25:36.205" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/mapreduce.robot" id="s1" name="hadoop31-mapreduce">
+<test id="s1-t1" name="Execute PI calculation">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-${hadoop.version}.jar pi 3 3</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190830 00:25:36.264" level="INFO">Running command 'yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.2.jar pi 3 3 2&gt;&amp;1'.</msg>
+<msg timestamp="20190830 00:25:37.971" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190830 00:25:37.972" level="INFO">${output} = Number of Maps  = 3
+Samples per Map = 3
+2019-08-30 00:25:37 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:37 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25...</msg>
+<status status="PASS" endtime="20190830 00:25:37.972" starttime="20190830 00:25:36.263"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190830 00:25:37.973" level="INFO">Number of Maps  = 3
+Samples per Map = 3
+2019-08-30 00:25:37 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:37 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:37 ERROR OzoneClientFactory:192 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:445)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:155)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:152)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:227)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:463)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.mapreduce.lib.input.FileInputFormat.setInputPaths(FileInputFormat.java:522)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.estimatePi(QuasiMonteCarlo.java:275)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.run(QuasiMonteCarlo.java:360)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.main(QuasiMonteCarlo.java:368)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:318)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:232)
+Caused by: java.net.UnknownHostException: om
+	... 38 more
+java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:445)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:155)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:152)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:227)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:463)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.mapreduce.lib.input.FileInputFormat.setInputPaths(FileInputFormat.java:522)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.estimatePi(QuasiMonteCarlo.java:275)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.run(QuasiMonteCarlo.java:360)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.examples.QuasiMonteCarlo.main(QuasiMonteCarlo.java:368)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:318)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:232)
+2019-08-30 00:25:37 INFO  Configuration:3318 - Removed undeclared tags:</msg>
+<status status="PASS" endtime="20190830 00:25:37.974" starttime="20190830 00:25:37.972"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190830 00:25:37.975" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190830 00:25:37.975" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190830 00:25:37.976" starttime="20190830 00:25:37.974"></status>
+</kw>
+<status status="FAIL" endtime="20190830 00:25:37.976" starttime="20190830 00:25:36.262"></status>
+</kw>
+<timeout value="2 minutes"></timeout>
+<status status="FAIL" endtime="20190830 00:25:37.976" critical="yes" starttime="20190830 00:25:36.262">255 != 0</status>
+</test>
+<test id="s1-t2" name="Execute WordCount">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>2</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190830 00:25:37.979" level="INFO">${random} = 01</msg>
+<status status="PASS" endtime="20190830 00:25:37.979" starttime="20190830 00:25:37.978"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-${hadoop.version}.jar wordcount o3fs://bucket1.vol1/key1 o3fs://bucket1.vol1/key1-${random}.count</arg>
+</arguments>
+<assign>
+<var>${output}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190830 00:25:37.983" level="INFO">Running command 'yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.2.jar wordcount o3fs://bucket1.vol1/key1 o3fs://bucket1.vol1/key1-01.count 2&gt;&amp;1'.</msg>
+<msg timestamp="20190830 00:25:39.767" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190830 00:25:39.767" level="INFO">${output} = 2019-08-30 00:25:39 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:39 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:39 ERROR OzoneClientFactory:192 - Could...</msg>
+<status status="PASS" endtime="20190830 00:25:39.767" starttime="20190830 00:25:37.982"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190830 00:25:39.768" level="INFO">2019-08-30 00:25:39 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:39 INFO  Configuration:3318 - Removed undeclared tags:
+2019-08-30 00:25:39 ERROR OzoneClientFactory:192 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:445)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:155)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:152)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.mapreduce.lib.input.FileInputFormat.addInputPath(FileInputFormat.java:542)
+	at org.apache.hadoop.examples.WordCount.main(WordCount.java:83)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:318)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:232)
+Caused by: java.net.UnknownHostException: om
+	... 33 more
+java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:445)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:109)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:77)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:195)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:155)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:189)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:152)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:137)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:154)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.mapreduce.lib.input.FileInputFormat.addInputPath(FileInputFormat.java:542)
+	at org.apache.hadoop.examples.WordCount.main(WordCount.java:83)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:71)
+	at org.apache.hadoop.util.ProgramDriver.run(ProgramDriver.java:144)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:74)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:318)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:232)
+2019-08-30 00:25:39 INFO  Configuration:3318 - Removed undeclared tags:</msg>
+<status status="PASS" endtime="20190830 00:25:39.769" starttime="20190830 00:25:39.767"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190830 00:25:39.770" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190830 00:25:39.770" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190830 00:25:39.771" starttime="20190830 00:25:39.769"></status>
+</kw>
+<status status="FAIL" endtime="20190830 00:25:39.771" starttime="20190830 00:25:37.979"></status>
+</kw>
+<timeout value="2 minutes"></timeout>
+<status status="FAIL" endtime="20190830 00:25:39.771" critical="yes" starttime="20190830 00:25:37.977">255 != 0</status>
+</test>
+<doc>Execute MR jobs</doc>
+<status status="FAIL" endtime="20190830 00:25:39.773" starttime="20190830 00:25:36.207"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" id="s1" name="hadoop31-mapreduce" pass="0">hadoop31-mapreduce</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
