@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190830 05:13:37.641" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/basic/basic.robot" id="s1" name="ozones3-haproxy-basic">
+<test id="s1-t1" name="Check webui static resources">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Kinit HTTP user</arg>
+</arguments>
+<status status="PASS" endtime="20190830 05:13:37.701" starttime="20190830 05:13:37.700"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190830 05:13:37.703" level="INFO">Running command 'curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js 2&gt;&amp;1'.</msg>
+<msg timestamp="20190830 05:13:37.726" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190830 05:13:37.726" level="INFO">${output} = HTTP/1.1 200 OK
+Date: Fri, 30 Aug 2019 05:13:37 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Fri, 30 Aug 2019 05:04:58 GMT
+Content-Typ...</msg>
+<status status="PASS" endtime="20190830 05:13:37.726" starttime="20190830 05:13:37.701"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190830 05:13:37.727" level="INFO">HTTP/1.1 200 OK
+Date: Fri, 30 Aug 2019 05:13:37 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Fri, 30 Aug 2019 05:04:58 GMT
+Content-Type: application/javascript
+Accept-Ranges: bytes
+Content-Length: 39680
+</msg>
+<status status="PASS" endtime="20190830 05:13:37.728" starttime="20190830 05:13:37.727"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190830 05:13:37.728" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190830 05:13:37.728" starttime="20190830 05:13:37.728"></status>
+</kw>
+<msg timestamp="20190830 05:13:37.729" level="INFO">${result} = HTTP/1.1 200 OK
+Date: Fri, 30 Aug 2019 05:13:37 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Fri, 30 Aug 2019 05:04:58 GMT
+Content-Typ...</msg>
+<status status="PASS" endtime="20190830 05:13:37.729" starttime="20190830 05:13:37.701"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" endtime="20190830 05:13:37.729" starttime="20190830 05:13:37.729"></status>
+</kw>
+<status status="PASS" endtime="20190830 05:13:37.730" critical="yes" starttime="20190830 05:13:37.699"></status>
+</test>
+<test id="s1-t2" name="Start freon testing">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190830 05:13:37.733" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190830 05:13:55.855" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190830 05:13:55.856" level="INFO">${output} = 2019-08-30 05:13:38 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-30 05:13:38 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190830 05:13:55.856" starttime="20190830 05:13:37.731"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190830 05:13:55.857" level="INFO">2019-08-30 05:13:38 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-30 05:13:38 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019-08-30 05:13:38 INFO  MetricsSystemImpl:191 - ozone-freon metrics system started
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:283 - Number of Threads: 1
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:288 - Number of Volumes: 5.
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:289 - Number of Buckets per Volume: 5.
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:290 - Number of Keys per Bucket: 5.
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:291 - Key size: 10240 bytes
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:292 - Buffer size: 4096 bytes
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:293 - validateWrites : false
+2019-08-30 05:13:40 INFO  RandomKeyGenerator:313 - Starting progress bar Thread.
+
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:002019-08-30 05:13:40 INFO  RpcClient:293 - Creating Volume: vol-0-05175, with hadoop as owner.
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:012019-08-30 05:13:41 INFO  RpcClient:293 - Creating Volume: vol-1-95165, with hadoop as owner.
+2019-08-30 05:13:41 INFO  RpcClient:293 - Creating Volume: vol-2-51354, with hadoop as owner.
+2019-08-30 05:13:41 INFO  RpcClient:293 - Creating Volume: vol-3-60588, with hadoop as owner.
+2019-08-30 05:13:41 INFO  RpcClient:293 - Creating Volume: vol-4-36764, with hadoop as owner.
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-0-05175/bucket-0-75058, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-1-95165/bucket-0-68136, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-2-51354/bucket-0-18294, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-3-60588/bucket-0-65507, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-4-36764/bucket-0-43348, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-0-05175/bucket-1-31850, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-1-95165/bucket-1-88758, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-2-51354/bucket-1-75041, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-3-60588/bucket-1-73465, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-4-36764/bucket-1-25889, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-0-05175/bucket-2-86927, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-1-95165/bucket-2-87464, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-2-51354/bucket-2-24953, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-3-60588/bucket-2-70376, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-4-36764/bucket-2-48932, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-0-05175/bucket-3-00316, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-1-95165/bucket-3-19530, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-2-51354/bucket-3-22940, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-3-60588/bucket-3-85103, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-4-36764/bucket-3-16079, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-0-05175/bucket-4-14775, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-1-95165/bucket-4-29522, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-2-51354/bucket-4-06370, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-3-60588/bucket-4-75165, with Versioning false and Storage Type set to DISK and Encryption set to false 
+2019-08-30 05:13:41 INFO  RpcClient:432 - Creating Bucket: vol-4-36764/bucket-4-47650, with Versioning false and Storage Type set to DISK and Encryption set to false 
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:022019-08-30 05:13:42 WARN  MetricsSystemImpl:151 - ozone-freon metrics system already initialized!
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.ratis.thirdparty.com.google.protobuf.UnsafeUtil (file:/opt/hadoop/share/ozone/lib/ratis-thirdparty-misc-0.2.0.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of org.apache.ratis.thirdparty.com.google.protobuf.UnsafeUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+ 0.00% |?                                                                                                    |  0/125 Time: 0:00:03 0.00% |?                                                                                                    |  0/125 Time: 0:00:04 0.00% |?                                                                                                    |  0/125 Time: 0:00:05 0.00% |?                                                                                                    |  0/125 Time: 0:00:06 0.00% |?                                                                                                    |  0/125 Time: 0:00:07 4.00% |?????                                                                                                |  5/125 Time: 0:00:08 24.80% |?????????????????????????                                                                            |  31/125 Time: 0:00:09 53.60% |??????????????????????????????????????????????????????                                               |  67/125 Time: 0:00:10 94.40% |???????????????????????????????????????????????????????????????????????????????????????????????      |  118/125 Time: 0:00:11 100.00% |?????????????????????????????????????????????????????????????????????????????????????????????????????|  125/125 Time: 0:00:12
+
+***************************************************
+Status: Success
+Git Base Revision: e97acb3bd8f3befd27418996fa5d4b50bf2e17bf
+Number of Volumes created: 5
+Number of Buckets created: 25
+Number of Keys added: 125
+Ratis replication factor: ONE
+Ratis replication type: STAND_ALONE
+Average Time spent in volume creation: 00:00:01,472
+Average Time spent in bucket creation: 00:00:00,076
+Average Time spent in key creation: 00:00:00,835
+Average Time spent in key write: 00:00:08,653
+Total bytes written: 1280000
+Total Execution time: 00:00:16,335
+***************************************************</msg>
+<status status="PASS" endtime="20190830 05:13:55.857" starttime="20190830 05:13:55.856"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190830 05:13:55.858" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190830 05:13:55.858" starttime="20190830 05:13:55.858"></status>
+</kw>
+<msg timestamp="20190830 05:13:55.859" level="INFO">${result} = 2019-08-30 05:13:38 INFO  MetricsConfig:118 - Loaded properties from hadoop-metrics2.properties
+2019-08-30 05:13:38 INFO  MetricsSystemImpl:374 - Scheduled Metric snapshot period at 10 second(s).
+2019...</msg>
+<status status="PASS" endtime="20190830 05:13:55.859" starttime="20190830 05:13:37.731"></status>
+</kw>
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<arguments>
+<arg>3min</arg>
+<arg>10sec</arg>
+<arg>Should contain</arg>
+<arg>${result}</arg>
+<arg>Number of Keys added: 125</arg>
+</arguments>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>Number of Keys added: 125</arg>
+</arguments>
+<status status="PASS" endtime="20190830 05:13:55.860" starttime="20190830 05:13:55.860"></status>
+</kw>
+<status status="PASS" endtime="20190830 05:13:55.860" starttime="20190830 05:13:55.859"></status>
+</kw>
+<kw name="Should Not Contain" library="BuiltIn">
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>ERROR</arg>
+</arguments>
+<status status="PASS" endtime="20190830 05:13:55.861" starttime="20190830 05:13:55.861"></status>
+</kw>
+<status status="PASS" endtime="20190830 05:13:55.861" critical="yes" starttime="20190830 05:13:37.730"></status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="PASS" endtime="20190830 05:13:55.862" starttime="20190830 05:13:37.642"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="ozones3-haproxy-basic" pass="2">ozones3-haproxy-basic</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
