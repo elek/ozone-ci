@@ -1,0 +1,7 @@
+commit 1d0752569e20609d130963035eefa08ce26068dd
+Author: S O'Donnell <sodonnell@cloudera.com>
+Date:   Thu Sep 5 19:23:40 2019 +0100
+
+    Removed hardcoded IN_SERVICE from the heartbeat loop and updated the state2eventmap so events are only fired for IN_SERVICE transitions.
+    
+    Prevent updating the nodeStatus directly in NodeStateMap to avoid race conditions. As NodeStatus contains two states, it could lead to lost updates. Instead allow each state to be updated seperately under the write lock.
