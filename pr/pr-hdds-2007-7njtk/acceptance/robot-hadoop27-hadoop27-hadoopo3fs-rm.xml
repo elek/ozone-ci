@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190912 01:36:02.941" generator="Robot 3.1.2 (Python 2.7.15 on linux2)">
+<suite source="/opt/ozone/smoketest/ozonefs/hadoopo3fs.robot" id="s1" name="hadoop27-hadoopo3fs">
+<test id="s1-t1" name="Test hadoop dfs">
+<kw name="Generate Random String" library="String">
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<arguments>
+<arg>5</arg>
+<arg>[NUMBERS]</arg>
+</arguments>
+<assign>
+<var>${random}</var>
+</assign>
+<msg timestamp="20190912 01:36:03.001" level="INFO">${random} = 36596</msg>
+<status status="PASS" endtime="20190912 01:36:03.002" starttime="20190912 01:36:03.001"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/${PREFIX}-${random}</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190912 01:36:03.003" level="INFO">Running command 'hdfs dfs -put /opt/hadoop/NOTICE.txt o3fs://bucket1.vol1/ozone-36596 2&gt;&amp;1'.</msg>
+<msg timestamp="20190912 01:36:04.178" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190912 01:36:04.178" level="INFO">${output} = Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/hadoop/hdds/conf/OzoneConfiguration
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at or...</msg>
+<status status="PASS" endtime="20190912 01:36:04.178" starttime="20190912 01:36:03.002"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190912 01:36:04.179" level="INFO">Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/hadoop/hdds/conf/OzoneConfiguration
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.apache.hadoop.conf.Configuration.getClassByNameOrNull(Configuration.java:2204)
+	at org.apache.hadoop.conf.Configuration.getClassByName(Configuration.java:2169)
+	at org.apache.hadoop.conf.Configuration.getClass(Configuration.java:2265)
+	at org.apache.hadoop.fs.FileSystem.getFileSystemClass(FileSystem.java:2652)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2665)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:93)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:2701)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:2683)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:372)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:295)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:325)
+	at org.apache.hadoop.fs.shell.CommandWithDestination.getRemoteDestination(CommandWithDestination.java:188)
+	at org.apache.hadoop.fs.shell.CopyCommands$Put.processOptions(CopyCommands.java:237)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:164)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:287)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:84)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:340)
+Caused by: java.lang.ClassNotFoundException: org.apache.hadoop.hdds.conf.OzoneConfiguration
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 20 more</msg>
+<status status="PASS" endtime="20190912 01:36:04.179" starttime="20190912 01:36:04.178"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190912 01:36:04.180" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190912 01:36:04.180" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190912 01:36:04.180" starttime="20190912 01:36:04.179"></status>
+</kw>
+<status status="FAIL" endtime="20190912 01:36:04.181" starttime="20190912 01:36:03.002"></status>
+</kw>
+<status status="FAIL" endtime="20190912 01:36:04.181" critical="yes" starttime="20190912 01:36:03.000">1 != 0</status>
+</test>
+<doc>Test ozone fs with hadoopfs</doc>
+<status status="FAIL" endtime="20190912 01:36:04.182" starttime="20190912 01:36:02.943"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="hadoop27-hadoopo3fs" pass="0">hadoop27-hadoopo3fs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
