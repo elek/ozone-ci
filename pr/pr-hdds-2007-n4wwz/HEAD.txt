@@ -1,0 +1,10 @@
+commit b557bd5789de9e7b9726064eafb3f13bfc8af75a
+Author: Siyao Meng <smeng@cloudera.com>
+Date:   Thu Sep 12 06:01:03 2019 -0700
+
+    Move OM-related config check logic from BasicOzoneFileSystem to BasicOzoneClientAdapterImpl to avoid class loading problem. This should address the acceptance test failures.
+    
+    1. this also moved the default port selection logic to BasicOzoneClientAdapterImpl.
+    2. this commit also addressed a potential bug that OmUtils.isOmHAServiceId(conf, omHost) would have caused in BasicOzoneFileSystem where conf isn't an OzoneConfiguration.
+    
+    Change-Id: Ic0011b514b08cde5b9d4e3c9ee5e1044306f7621
