@@ -1,0 +1,9 @@
+commit 2a2d93f4e9aa32a25c6a74986836876e35f45352
+Author: Siyao Meng <smeng@cloudera.com>
+Date:   Wed Sep 11 18:00:22 2019 -0700
+
+    Fixed unit test TestOzoneManagerHA#testReadRequest and TestOzoneManagerHA#testOMProxyProviderInitialization.
+    
+    The root cause is that they were using old OzoneClientFactory.getRpcClient() methods which doesn't take omServiceId, thus they failed to fail-over to the leader OM. This should be further addressed in HDDS-2105.
+    
+    Change-Id: I2b1a70c0d4e29e074c89d8df03798c8ab2bd41fa
