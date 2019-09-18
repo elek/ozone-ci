@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190918 22:20:39.962" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/ozonefs/ozonefs.robot" id="s1" name="ozonesecure-ozonefs">
+<test id="s1-t1" name="Create volume and bucket">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone sh volume create o3://om/fstest --quota 100TB</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190918 22:20:40.044" level="INFO">Running command 'ozone sh volume create o3://om/fstest --quota 100TB 2&gt;&amp;1'.</msg>
+<msg timestamp="20190918 22:20:41.125" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190918 22:20:41.126" level="INFO">${output} = Exception in thread "main" java.lang.NoSuchMethodError: io.opentracing.ScopeManager.activeSpan()Lio/opentracing/Span;
+	at io.jaegertracing.internal.JaegerTracer$SpanBuilder.start(JaegerTracer.java:440...</msg>
+<status status="PASS" endtime="20190918 22:20:41.126" starttime="20190918 22:20:40.042"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190918 22:20:41.127" level="INFO">Exception in thread "main" java.lang.NoSuchMethodError: io.opentracing.ScopeManager.activeSpan()Lio/opentracing/Span;
+	at io.jaegertracing.internal.JaegerTracer$SpanBuilder.start(JaegerTracer.java:440)
+	at io.jaegertracing.internal.JaegerTracer$SpanBuilder$1.&lt;init&gt;(JaegerTracer.java:485)
+	at io.jaegertracing.internal.JaegerTracer$SpanBuilder.startActive(JaegerTracer.java:484)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.execute(OzoneShell.java:59)
+	at org.apache.hadoop.hdds.cli.GenericCli.run(GenericCli.java:56)
+	at org.apache.hadoop.ozone.web.ozShell.OzoneShell.main(OzoneShell.java:53)</msg>
+<status status="PASS" endtime="20190918 22:20:41.127" starttime="20190918 22:20:41.126"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190918 22:20:41.128" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190918 22:20:41.128" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190918 22:20:41.128" starttime="20190918 22:20:41.127"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:41.128" starttime="20190918 22:20:40.041"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:41.129" critical="yes" starttime="20190918 22:20:40.040">1 != 0</status>
+</test>
+<test id="s1-t2" name="Check volume from ozonefs">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone fs -ls o3fs://bucket1.fstest/</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190918 22:20:41.132" level="INFO">Running command 'ozone fs -ls o3fs://bucket1.fstest/ 2&gt;&amp;1'.</msg>
+<msg timestamp="20190918 22:20:43.040" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190918 22:20:43.040" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190918 22:20:43.040" starttime="20190918 22:20:41.131"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190918 22:20:43.042" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-09-18 22:20:42 ERROR OzoneClientFactory:259 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:113)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:81)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:196)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:162)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:256)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:239)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:203)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:161)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:155)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:352)
+	at org.apache.hadoop.fs.shell.Command.expandArgument(Command.java:250)
+	at org.apache.hadoop.fs.shell.Command.expandArguments(Command.java:233)
+	at org.apache.hadoop.fs.shell.FsCommand.processRawArguments(FsCommand.java:104)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:177)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:327)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:90)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:390)
+Caused by: java.net.UnknownHostException: om
+	... 28 more
+ls: om</msg>
+<status status="PASS" endtime="20190918 22:20:43.042" starttime="20190918 22:20:43.041"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190918 22:20:43.042" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190918 22:20:43.043" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190918 22:20:43.043" starttime="20190918 22:20:43.042"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:43.043" starttime="20190918 22:20:41.130"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:43.044" critical="yes" starttime="20190918 22:20:41.129">1 != 0</status>
+</test>
+<test id="s1-t3" name="Run ozoneFS tests">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone fs -mkdir -p o3fs://bucket1.fstest/testdir/deep</arg>
+</arguments>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190918 22:20:43.048" level="INFO">Running command 'ozone fs -mkdir -p o3fs://bucket1.fstest/testdir/deep 2&gt;&amp;1'.</msg>
+<msg timestamp="20190918 22:20:44.731" level="INFO">${rc} = 1</msg>
+<msg timestamp="20190918 22:20:44.731" level="INFO">${output} = WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-...</msg>
+<status status="PASS" endtime="20190918 22:20:44.731" starttime="20190918 22:20:43.046"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190918 22:20:44.733" level="INFO">WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.hadoop.security.authentication.util.KerberosUtil (file:/opt/hadoop/share/ozone/lib/hadoop-auth-3.2.0.jar) to method sun.security.krb5.Config.getInstance()
+WARNING: Please consider reporting this to the maintainers of org.apache.hadoop.security.authentication.util.KerberosUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-09-18 22:20:44 ERROR OzoneClientFactory:259 - Couldn't create RpcClient protocol exception: 
+java.lang.IllegalArgumentException: java.net.UnknownHostException: om
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:447)
+	at org.apache.hadoop.ozone.om.ha.OMProxyInfo.&lt;init&gt;(OMProxyInfo.java:40)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.loadOMClientConfigs(OMFailoverProxyProvider.java:113)
+	at org.apache.hadoop.ozone.om.ha.OMFailoverProxyProvider.&lt;init&gt;(OMFailoverProxyProvider.java:81)
+	at org.apache.hadoop.ozone.om.protocolPB.OzoneManagerProtocolClientSideTranslatorPB.&lt;init&gt;(OzoneManagerProtocolClientSideTranslatorPB.java:196)
+	at org.apache.hadoop.ozone.client.rpc.RpcClient.&lt;init&gt;(RpcClient.java:162)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:256)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getClientProtocol(OzoneClientFactory.java:239)
+	at org.apache.hadoop.ozone.client.OzoneClientFactory.getRpcClient(OzoneClientFactory.java:203)
+	at org.apache.hadoop.fs.ozone.BasicOzoneClientAdapterImpl.&lt;init&gt;(BasicOzoneClientAdapterImpl.java:161)
+	at org.apache.hadoop.fs.ozone.OzoneClientAdapterImpl.&lt;init&gt;(OzoneClientAdapterImpl.java:50)
+	at org.apache.hadoop.fs.ozone.OzoneFileSystem.createAdapter(OzoneFileSystem.java:102)
+	at org.apache.hadoop.fs.ozone.BasicOzoneFileSystem.initialize(BasicOzoneFileSystem.java:155)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:3303)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:124)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:3352)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:3320)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:479)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:361)
+	at org.apache.hadoop.fs.shell.PathData.expandAsGlob(PathData.java:352)
+	at org.apache.hadoop.fs.shell.Command.expandArgument(Command.java:250)
+	at org.apache.hadoop.fs.shell.Command.expandArguments(Command.java:233)
+	at org.apache.hadoop.fs.shell.FsCommand.processRawArguments(FsCommand.java:104)
+	at org.apache.hadoop.fs.shell.Command.run(Command.java:177)
+	at org.apache.hadoop.fs.FsShell.run(FsShell.java:327)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:90)
+	at org.apache.hadoop.fs.FsShell.main(FsShell.java:390)
+Caused by: java.net.UnknownHostException: om
+	... 28 more
+mkdir: om</msg>
+<status status="PASS" endtime="20190918 22:20:44.733" starttime="20190918 22:20:44.732"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190918 22:20:44.735" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190918 22:20:44.735" level="FAIL">1 != 0</msg>
+<status status="FAIL" endtime="20190918 22:20:44.735" starttime="20190918 22:20:44.734"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:44.736" starttime="20190918 22:20:43.045"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:20:44.736" critical="yes" starttime="20190918 22:20:43.044">1 != 0</status>
+</test>
+<doc>Ozonefs test</doc>
+<status status="FAIL" endtime="20190918 22:20:44.738" starttime="20190918 22:20:39.963"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="3" pass="0">Critical Tests</stat>
+<stat fail="3" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="3" id="s1" name="ozonesecure-ozonefs" pass="0">ozonesecure-ozonefs</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

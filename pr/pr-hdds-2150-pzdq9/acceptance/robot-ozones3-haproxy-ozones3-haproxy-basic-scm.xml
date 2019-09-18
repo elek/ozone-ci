@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190918 22:18:05.398" generator="Robot 3.1.2 (Python 2.7.5 on linux2)">
+<suite source="/opt/hadoop/smoketest/basic/basic.robot" id="s1" name="ozones3-haproxy-basic">
+<test id="s1-t1" name="Check webui static resources">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${SECURITY_ENABLED}' == 'true'</arg>
+<arg>Kinit HTTP user</arg>
+</arguments>
+<status status="PASS" endtime="20190918 22:18:05.453" starttime="20190918 22:18:05.453"></status>
+</kw>
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190918 22:18:05.455" level="INFO">Running command 'curl --negotiate -u : -s -I http://scm:9876/static/bootstrap-3.4.1/js/bootstrap.min.js 2&gt;&amp;1'.</msg>
+<msg timestamp="20190918 22:18:05.486" level="INFO">${rc} = 0</msg>
+<msg timestamp="20190918 22:18:05.486" level="INFO">${output} = HTTP/1.1 200 OK
+Date: Wed, 18 Sep 2019 22:18:05 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Wed, 18 Sep 2019 22:00:14 GMT
+Content-Typ...</msg>
+<status status="PASS" endtime="20190918 22:18:05.486" starttime="20190918 22:18:05.454"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190918 22:18:05.487" level="INFO">HTTP/1.1 200 OK
+Date: Wed, 18 Sep 2019 22:18:05 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Wed, 18 Sep 2019 22:00:14 GMT
+Content-Type: application/javascript
+Accept-Ranges: bytes
+Content-Length: 39680
+</msg>
+<status status="PASS" endtime="20190918 22:18:05.487" starttime="20190918 22:18:05.486"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190918 22:18:05.488" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20190918 22:18:05.489" starttime="20190918 22:18:05.488"></status>
+</kw>
+<msg timestamp="20190918 22:18:05.489" level="INFO">${result} = HTTP/1.1 200 OK
+Date: Wed, 18 Sep 2019 22:18:05 GMT
+X-Content-Type-Options: nosniff
+X-FRAME-OPTIONS: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Last-Modified: Wed, 18 Sep 2019 22:00:14 GMT
+Content-Typ...</msg>
+<status status="PASS" endtime="20190918 22:18:05.489" starttime="20190918 22:18:05.453"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" endtime="20190918 22:18:05.490" starttime="20190918 22:18:05.490"></status>
+</kw>
+<status status="PASS" endtime="20190918 22:18:05.490" critical="yes" starttime="20190918 22:18:05.452"></status>
+</test>
+<test id="s1-t2" name="Start freon testing">
+<kw name="Execute" library="commonlib">
+<arguments>
+<arg>ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<kw name="Run And Return Rc And Output" library="OperatingSystem">
+<doc>Runs the given command in the system and returns the RC and output.</doc>
+<arguments>
+<arg>${command}</arg>
+</arguments>
+<assign>
+<var>${rc}</var>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190918 22:18:05.495" level="INFO">Running command 'ozone freon randomkeys --numOfVolumes 5 --numOfBuckets 5 --numOfKeys 5 --numOfThreads 1 2&gt;&amp;1'.</msg>
+<msg timestamp="20190918 22:18:07.271" level="INFO">${rc} = 255</msg>
+<msg timestamp="20190918 22:18:07.271" level="INFO">${output} = om</msg>
+<status status="PASS" endtime="20190918 22:18:07.271" starttime="20190918 22:18:05.493"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20190918 22:18:07.273" level="INFO">om</msg>
+<status status="PASS" endtime="20190918 22:18:07.273" starttime="20190918 22:18:07.272"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${rc}</arg>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20190918 22:18:07.274" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190918 22:18:07.274" level="FAIL">255 != 0</msg>
+<status status="FAIL" endtime="20190918 22:18:07.274" starttime="20190918 22:18:07.273"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:18:07.275" starttime="20190918 22:18:05.492"></status>
+</kw>
+<status status="FAIL" endtime="20190918 22:18:07.275" critical="yes" starttime="20190918 22:18:05.491">255 != 0</status>
+</test>
+<doc>Smoketest ozone cluster startup</doc>
+<status status="FAIL" endtime="20190918 22:18:07.276" starttime="20190918 22:18:05.399"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="1">Critical Tests</stat>
+<stat fail="1" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="1" id="s1" name="ozones3-haproxy-basic" pass="1">ozones3-haproxy-basic</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
