@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="1.04" tests="91" errors="0" skipped="28" failures="1">
+  <properties>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workdir/hadoop-hdds/server-scm/target/test-classes:/workdir/hadoop-hdds/server-scm/target/classes:/workdir/hadoop-hdds/common/target/classes:/workdir/hadoop-hdds/config/target/classes:/home/user/.m2/repository/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar:/home/user/.m2/repository/org/fusesource/leveldbjni/leveldbjni-all/1.8/leveldbjni-all-1.8.jar:/home/user/.m2/repository/org/apache/ratis/ratis-server/0.4.0-78e95b9-SNAPSHOT/ratis-server-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-thirdparty-misc/0.2.0/ratis-thirdparty-misc-0.2.0.jar:/home/user/.m2/repository/org/apache/ratis/ratis-proto/0.4.0-78e95b9-SNAPSHOT/ratis-proto-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-common/0.4.0-78e95b9-SNAPSHOT/ratis-common-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-client/0.4.0-78e95b9-SNAPSHOT/ratis-client-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-metrics/0.4.0-78e95b9-SNAPSHOT/ratis-metrics-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/com/github/joshelser/dropwizard-metrics-hadoop-metrics2-reporter/0.1.2/dropwizard-metrics-hadoop-metrics2-reporter-0.1.2.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-jvm/3.2.5/metrics-jvm-3.2.5.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-ganglia/3.2.5/metrics-ganglia-3.2.5.jar:/home/user/.m2/repository/info/ganglia/gmetric4j/gmetric4j/1.0.7/gmetric4j-1.0.7.jar:/home/user/.m2/repository/org/apache/ratis/ratis-netty/0.4.0-78e95b9-SNAPSHOT/ratis-netty-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-grpc/0.4.0-78e95b9-SNAPSHOT/ratis-grpc-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/rocksdb/rocksdbjni/6.0.1/rocksdbjni-6.0.1.jar:/home/user/.m2/repository/org/apache/logging/log4j/log4j-api/2.11.0/log4j-api-2.11.0.jar:/home/user/.m2/repository/org/apache/logging/log4j/log4j-core/2.11.0/log4j-core-2.11.0.jar:/home/user/.m2/repository/com/lmax/disruptor/3.4.2/disruptor-3.4.2.jar:/home/user/.m2/repository/org/apache/commons/commons-pool2/2.6.0/commons-pool2-2.6.0.jar:/home/user/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.60/bcpkix-jdk15on-1.60.jar:/home/user/.m2/repository/commons-validator/commons-validator/1.6/commons-validator-1.6.jar:/home/user/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-client/0.33.1/jaeger-client-0.33.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-thrift/0.33.1/jaeger-thrift-0.33.1.jar:/home/user/.m2/repository/org/apache/thrift/libthrift/0.11.0/libthrift-0.11.0.jar:/home/user/.m2/repository/com/squareup/okhttp3/okhttp/3.9.0/okhttp-3.9.0.jar:/home/user/.m2/repository/com/squareup/okio/okio/1.13.0/okio-1.13.0.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-core/0.33.1/jaeger-core-0.33.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-tracerresolver/0.33.1/jaeger-tracerresolver-0.33.1.jar:/home/user/.m2/repository/io/opentracing/contrib/opentracing-tracerresolver/0.1.5/opentracing-tracerresolver-0.1.5.jar:/home/user/.m2/repository/io/opentracing/opentracing-util/0.31.0/opentracing-util-0.31.0.jar:/home/user/.m2/repository/io/opentracing/opentracing-api/0.31.0/opentracing-api-0.31.0.jar:/home/user/.m2/repository/io/opentracing/opentracing-noop/0.31.0/opentracing-noop-0.31.0.jar:/home/user/.m2/repository/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar:/workdir/hadoop-hdds/container-service/target/classes:/workdir/hadoop-hdds/client/target/classes:/home/user/.m2/repository/io/netty/netty-all/4.0.52.Final/netty-all-4.0.52.Final.jar:/workdir/hadoop-hdds/framework/target/classes:/workdir/hadoop-hdds/docs/target/classes:/workdir/hadoop-hdds/container-service/target/test-classes:/home/user/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-core/3.2.4/metrics-core-3.2.4.jar:/home/user/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/user/.m2/repository/org/assertj/assertj-core/3.8.0/assertj-core-3.8.0.jar:/home/user/.m2/repository/org/openjdk/jmh/jmh-core/1.19/jmh-core-1.19.jar:/home/user/.m2/repository/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.jar:/home/user/.m2/repository/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar:/home/user/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.19/jmh-generator-annprocess-1.19.jar:/home/user/.m2/repository/org/mockito/mockito-all/1.8.5/mockito-all-1.8.5.jar:/home/user/.m2/repository/org/hamcrest/hamcrest-all/1.3/hamcrest-all-1.3.jar:/home/user/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.60/bcprov-jdk15on-1.60.jar:/home/user/.m2/repository/com/google/code/findbugs/findbugs/3.0.1/findbugs-3.0.1.jar:/home/user/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/user/.m2/repository/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar:/home/user/.m2/repository/com/google/code/findbugs/bcel-findbugs/6.0/bcel-findbugs-6.0.jar:/home/user/.m2/repository/com/google/code/findbugs/jFormatString/2.0.1/jFormatString-2.0.1.jar:/home/user/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar:/home/user/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar:/home/user/.m2/repository/org/ow2/asm/asm-debug-all/5.0.2/asm-debug-all-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm-commons/5.0.2/asm-commons-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm-tree/5.0.2/asm-tree-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm/5.0.4/asm-5.0.4.jar:/home/user/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/home/user/.m2/repository/com/apple/AppleJavaExtensions/1.4/AppleJavaExtensions-1.4.jar:/home/user/.m2/repository/jaxen/jaxen/1.1.6/jaxen-1.1.6.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-common/3.2.0/hadoop-common-3.2.0.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-annotations/3.2.0/hadoop-annotations-3.2.0.jar:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/tools.jar:/home/user/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/home/user/.m2/repository/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar:/home/user/.m2/repository/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar:/home/user/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar:/home/user/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/home/user/.m2/repository/commons-net/commons-net/3.6/commons-net-3.6.jar:/home/user/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/user/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-server/9.3.24.v20180605/jetty-server-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-http/9.3.24.v20180605/jetty-http-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-io/9.3.24.v20180605/jetty-io-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-util/9.3.24.v20180605/jetty-util-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-servlet/9.3.24.v20180605/jetty-servlet-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-security/9.3.24.v20180605/jetty-security-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-webapp/9.3.24.v20180605/jetty-webapp-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-xml/9.3.24.v20180605/jetty-xml-9.3.24.v20180605.jar:/home/user/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar:/home/user/.m2/repository/com/sun/jersey/jersey-core/1.19/jersey-core-1.19.jar:/home/user/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/home/user/.m2/repository/com/sun/jersey/jersey-servlet/1.19/jersey-servlet-1.19.jar:/home/user/.m2/repository/com/sun/jersey/jersey-json/1.19/jersey-json-1.19.jar:/home/user/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar:/home/user/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar:/home/user/.m2/repository/javax/xml/bind/jaxb-api/2.2.11/jaxb-api-2.2.11.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar:/home/user/.m2/repository/com/sun/jersey/jersey-server/1.19/jersey-server-1.19.jar:/home/user/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar:/home/user/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/home/user/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/user/.m2/repository/org/apache/commons/commons-configuration2/2.1.1/commons-configuration2-2.1.1.jar:/home/user/.m2/repository/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar:/home/user/.m2/repository/org/apache/commons/commons-text/1.4/commons-text-1.4.jar:/home/user/.m2/repository/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25.jar:/home/user/.m2/repository/org/apache/avro/avro/1.7.7/avro-1.7.7.jar:/home/user/.m2/repository/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar:/home/user/.m2/repository/org/xerial/snappy/snappy-java/1.0.5/snappy-java-1.0.5.jar:/home/user/.m2/repository/com/google/re2j/re2j/1.1/re2j-1.1.jar:/home/user/.m2/repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-auth/3.2.0/hadoop-auth-3.2.0.jar:/home/user/.m2/repository/com/nimbusds/nimbus-jose-jwt/4.41.1/nimbus-jose-jwt-4.41.1.jar:/home/user/.m2/repository/com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0-1.jar:/home/user/.m2/repository/net/minidev/json-smart/2.3/json-smart-2.3.jar:/home/user/.m2/repository/net/minidev/accessors-smart/1.2/accessors-smart-1.2.jar:/home/user/.m2/repository/org/apache/curator/curator-framework/2.12.0/curator-framework-2.12.0.jar:/home/user/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar:/home/user/.m2/repository/org/apache/curator/curator-client/2.12.0/curator-client-2.12.0.jar:/home/user/.m2/repository/org/apache/curator/curator-recipes/2.12.0/curator-recipes-2.12.0.jar:/home/user/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/user/.m2/repository/org/apache/zookeeper/zookeeper/3.4.13/zookeeper-3.4.13.jar:/home/user/.m2/repository/org/apache/yetus/audience-annotations/0.5.0/audience-annotations-0.5.0.jar:/home/user/.m2/repository/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar:/home/user/.m2/repository/org/tukaani/xz/1.0/xz-1.0.jar:/home/user/.m2/repository/org/apache/kerby/kerb-simplekdc/1.0.1/kerb-simplekdc-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-client/1.0.1/kerb-client-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-config/1.0.1/kerby-config-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-core/1.0.1/kerb-core-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-pkix/1.0.1/kerby-pkix-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-asn1/1.0.1/kerby-asn1-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-util/1.0.1/kerby-util-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-common/1.0.1/kerb-common-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-crypto/1.0.1/kerb-crypto-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-util/1.0.1/kerb-util-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/token-provider/1.0.1/token-provider-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-admin/1.0.1/kerb-admin-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-server/1.0.1/kerb-server-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-identity/1.0.1/kerb-identity-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-xdr/1.0.1/kerby-xdr-1.0.1.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.9/jackson-databind-2.9.9.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.jar:/home/user/.m2/repository/org/codehaus/woodstox/stax2-api/3.1.4/stax2-api-3.1.4.jar:/home/user/.m2/repository/com/fasterxml/woodstox/woodstox-core/5.0.3/woodstox-core-5.0.3.jar:/home/user/.m2/repository/dnsjava/dnsjava/2.1.7/dnsjava-2.1.7.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs/3.2.0/hadoop-hdfs-3.2.0.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.3.24.v20180605/jetty-util-ajax-9.3.24.v20180605.jar:/home/user/.m2/repository/commons-daemon/commons-daemon/1.0.13/commons-daemon-1.0.13.jar:/home/user/.m2/repository/io/netty/netty/3.10.5.Final/netty-3.10.5.Final.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs-client/3.2.0/hadoop-hdfs-client-3.2.0.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.9/jackson-annotations-2.9.9.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-common/3.2.0/hadoop-common-3.2.0-tests.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs/3.2.0/hadoop-hdfs-3.2.0-tests.jar:/home/user/.m2/repository/info/picocli/picocli/3.9.6/picocli-3.9.6.jar:/home/user/.m2/repository/com/google/protobuf/protobuf-java/2.5.0/protobuf-java-2.5.0.jar:/home/user/.m2/repository/com/google/guava/guava/11.0.2/guava-11.0.2.jar:/home/user/.m2/repository/junit/junit/4.11/junit-4.11.jar:"/>
+    <property name="java.vm.vendor" value="IcedTea"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="test.build.dir" value="/workdir/hadoop-hdds/server-scm/target/test-dir"/>
+    <property name="test.cache.data" value=""/>
+    <property name="java.vendor.url" value="https://icedtea.classpath.org"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Linux"/>
+    <property name="test.build.data" value="/workdir/hadoop-hdds/server-scm/target/test-dir"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64"/>
+    <property name="sun.java.command" value="/workdir/hadoop-hdds/server-scm/target/surefire/surefirebooter4166085130362519572.jar /workdir/hadoop-hdds/server-scm/target/surefire 2019-09-18T08-55-06_111-jvmRun1 surefire6274167221701038484tmp surefire_532784774368875668719tmp"/>
+    <property name="surefire.test.class.path" value="/workdir/hadoop-hdds/server-scm/target/test-classes:/workdir/hadoop-hdds/server-scm/target/classes:/workdir/hadoop-hdds/common/target/classes:/workdir/hadoop-hdds/config/target/classes:/home/user/.m2/repository/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar:/home/user/.m2/repository/org/fusesource/leveldbjni/leveldbjni-all/1.8/leveldbjni-all-1.8.jar:/home/user/.m2/repository/org/apache/ratis/ratis-server/0.4.0-78e95b9-SNAPSHOT/ratis-server-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-thirdparty-misc/0.2.0/ratis-thirdparty-misc-0.2.0.jar:/home/user/.m2/repository/org/apache/ratis/ratis-proto/0.4.0-78e95b9-SNAPSHOT/ratis-proto-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-common/0.4.0-78e95b9-SNAPSHOT/ratis-common-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-client/0.4.0-78e95b9-SNAPSHOT/ratis-client-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-metrics/0.4.0-78e95b9-SNAPSHOT/ratis-metrics-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/com/github/joshelser/dropwizard-metrics-hadoop-metrics2-reporter/0.1.2/dropwizard-metrics-hadoop-metrics2-reporter-0.1.2.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-jvm/3.2.5/metrics-jvm-3.2.5.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-ganglia/3.2.5/metrics-ganglia-3.2.5.jar:/home/user/.m2/repository/info/ganglia/gmetric4j/gmetric4j/1.0.7/gmetric4j-1.0.7.jar:/home/user/.m2/repository/org/apache/ratis/ratis-netty/0.4.0-78e95b9-SNAPSHOT/ratis-netty-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/apache/ratis/ratis-grpc/0.4.0-78e95b9-SNAPSHOT/ratis-grpc-0.4.0-78e95b9-SNAPSHOT.jar:/home/user/.m2/repository/org/rocksdb/rocksdbjni/6.0.1/rocksdbjni-6.0.1.jar:/home/user/.m2/repository/org/apache/logging/log4j/log4j-api/2.11.0/log4j-api-2.11.0.jar:/home/user/.m2/repository/org/apache/logging/log4j/log4j-core/2.11.0/log4j-core-2.11.0.jar:/home/user/.m2/repository/com/lmax/disruptor/3.4.2/disruptor-3.4.2.jar:/home/user/.m2/repository/org/apache/commons/commons-pool2/2.6.0/commons-pool2-2.6.0.jar:/home/user/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.60/bcpkix-jdk15on-1.60.jar:/home/user/.m2/repository/commons-validator/commons-validator/1.6/commons-validator-1.6.jar:/home/user/.m2/repository/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-client/0.33.1/jaeger-client-0.33.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-thrift/0.33.1/jaeger-thrift-0.33.1.jar:/home/user/.m2/repository/org/apache/thrift/libthrift/0.11.0/libthrift-0.11.0.jar:/home/user/.m2/repository/com/squareup/okhttp3/okhttp/3.9.0/okhttp-3.9.0.jar:/home/user/.m2/repository/com/squareup/okio/okio/1.13.0/okio-1.13.0.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-core/0.33.1/jaeger-core-0.33.1.jar:/home/user/.m2/repository/io/jaegertracing/jaeger-tracerresolver/0.33.1/jaeger-tracerresolver-0.33.1.jar:/home/user/.m2/repository/io/opentracing/contrib/opentracing-tracerresolver/0.1.5/opentracing-tracerresolver-0.1.5.jar:/home/user/.m2/repository/io/opentracing/opentracing-util/0.31.0/opentracing-util-0.31.0.jar:/home/user/.m2/repository/io/opentracing/opentracing-api/0.31.0/opentracing-api-0.31.0.jar:/home/user/.m2/repository/io/opentracing/opentracing-noop/0.31.0/opentracing-noop-0.31.0.jar:/home/user/.m2/repository/org/yaml/snakeyaml/1.16/snakeyaml-1.16.jar:/workdir/hadoop-hdds/container-service/target/classes:/workdir/hadoop-hdds/client/target/classes:/home/user/.m2/repository/io/netty/netty-all/4.0.52.Final/netty-all-4.0.52.Final.jar:/workdir/hadoop-hdds/framework/target/classes:/workdir/hadoop-hdds/docs/target/classes:/workdir/hadoop-hdds/container-service/target/test-classes:/home/user/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/user/.m2/repository/io/dropwizard/metrics/metrics-core/3.2.4/metrics-core-3.2.4.jar:/home/user/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/home/user/.m2/repository/org/assertj/assertj-core/3.8.0/assertj-core-3.8.0.jar:/home/user/.m2/repository/org/openjdk/jmh/jmh-core/1.19/jmh-core-1.19.jar:/home/user/.m2/repository/net/sf/jopt-simple/jopt-simple/4.6/jopt-simple-4.6.jar:/home/user/.m2/repository/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar:/home/user/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.19/jmh-generator-annprocess-1.19.jar:/home/user/.m2/repository/org/mockito/mockito-all/1.8.5/mockito-all-1.8.5.jar:/home/user/.m2/repository/org/hamcrest/hamcrest-all/1.3/hamcrest-all-1.3.jar:/home/user/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.60/bcprov-jdk15on-1.60.jar:/home/user/.m2/repository/com/google/code/findbugs/findbugs/3.0.1/findbugs-3.0.1.jar:/home/user/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar:/home/user/.m2/repository/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar:/home/user/.m2/repository/com/google/code/findbugs/bcel-findbugs/6.0/bcel-findbugs-6.0.jar:/home/user/.m2/repository/com/google/code/findbugs/jFormatString/2.0.1/jFormatString-2.0.1.jar:/home/user/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar:/home/user/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar:/home/user/.m2/repository/org/ow2/asm/asm-debug-all/5.0.2/asm-debug-all-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm-commons/5.0.2/asm-commons-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm-tree/5.0.2/asm-tree-5.0.2.jar:/home/user/.m2/repository/org/ow2/asm/asm/5.0.4/asm-5.0.4.jar:/home/user/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/home/user/.m2/repository/com/apple/AppleJavaExtensions/1.4/AppleJavaExtensions-1.4.jar:/home/user/.m2/repository/jaxen/jaxen/1.1.6/jaxen-1.1.6.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-common/3.2.0/hadoop-common-3.2.0.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-annotations/3.2.0/hadoop-annotations-3.2.0.jar:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/tools.jar:/home/user/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/home/user/.m2/repository/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar:/home/user/.m2/repository/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar:/home/user/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar:/home/user/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/home/user/.m2/repository/commons-net/commons-net/3.6/commons-net-3.6.jar:/home/user/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/user/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-server/9.3.24.v20180605/jetty-server-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-http/9.3.24.v20180605/jetty-http-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-io/9.3.24.v20180605/jetty-io-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-util/9.3.24.v20180605/jetty-util-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-servlet/9.3.24.v20180605/jetty-servlet-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-security/9.3.24.v20180605/jetty-security-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-webapp/9.3.24.v20180605/jetty-webapp-9.3.24.v20180605.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-xml/9.3.24.v20180605/jetty-xml-9.3.24.v20180605.jar:/home/user/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar:/home/user/.m2/repository/com/sun/jersey/jersey-core/1.19/jersey-core-1.19.jar:/home/user/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/home/user/.m2/repository/com/sun/jersey/jersey-servlet/1.19/jersey-servlet-1.19.jar:/home/user/.m2/repository/com/sun/jersey/jersey-json/1.19/jersey-json-1.19.jar:/home/user/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar:/home/user/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar:/home/user/.m2/repository/javax/xml/bind/jaxb-api/2.2.11/jaxb-api-2.2.11.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar:/home/user/.m2/repository/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar:/home/user/.m2/repository/com/sun/jersey/jersey-server/1.19/jersey-server-1.19.jar:/home/user/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar:/home/user/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/home/user/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/user/.m2/repository/org/apache/commons/commons-configuration2/2.1.1/commons-configuration2-2.1.1.jar:/home/user/.m2/repository/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar:/home/user/.m2/repository/org/apache/commons/commons-text/1.4/commons-text-1.4.jar:/home/user/.m2/repository/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25.jar:/home/user/.m2/repository/org/apache/avro/avro/1.7.7/avro-1.7.7.jar:/home/user/.m2/repository/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar:/home/user/.m2/repository/org/xerial/snappy/snappy-java/1.0.5/snappy-java-1.0.5.jar:/home/user/.m2/repository/com/google/re2j/re2j/1.1/re2j-1.1.jar:/home/user/.m2/repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-auth/3.2.0/hadoop-auth-3.2.0.jar:/home/user/.m2/repository/com/nimbusds/nimbus-jose-jwt/4.41.1/nimbus-jose-jwt-4.41.1.jar:/home/user/.m2/repository/com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0-1.jar:/home/user/.m2/repository/net/minidev/json-smart/2.3/json-smart-2.3.jar:/home/user/.m2/repository/net/minidev/accessors-smart/1.2/accessors-smart-1.2.jar:/home/user/.m2/repository/org/apache/curator/curator-framework/2.12.0/curator-framework-2.12.0.jar:/home/user/.m2/repository/com/jcraft/jsch/0.1.54/jsch-0.1.54.jar:/home/user/.m2/repository/org/apache/curator/curator-client/2.12.0/curator-client-2.12.0.jar:/home/user/.m2/repository/org/apache/curator/curator-recipes/2.12.0/curator-recipes-2.12.0.jar:/home/user/.m2/repository/org/apache/htrace/htrace-core4/4.1.0-incubating/htrace-core4-4.1.0-incubating.jar:/home/user/.m2/repository/org/apache/zookeeper/zookeeper/3.4.13/zookeeper-3.4.13.jar:/home/user/.m2/repository/org/apache/yetus/audience-annotations/0.5.0/audience-annotations-0.5.0.jar:/home/user/.m2/repository/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar:/home/user/.m2/repository/org/tukaani/xz/1.0/xz-1.0.jar:/home/user/.m2/repository/org/apache/kerby/kerb-simplekdc/1.0.1/kerb-simplekdc-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-client/1.0.1/kerb-client-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-config/1.0.1/kerby-config-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-core/1.0.1/kerb-core-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-pkix/1.0.1/kerby-pkix-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-asn1/1.0.1/kerby-asn1-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-util/1.0.1/kerby-util-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-common/1.0.1/kerb-common-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-crypto/1.0.1/kerb-crypto-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-util/1.0.1/kerb-util-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/token-provider/1.0.1/token-provider-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-admin/1.0.1/kerb-admin-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-server/1.0.1/kerb-server-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerb-identity/1.0.1/kerb-identity-1.0.1.jar:/home/user/.m2/repository/org/apache/kerby/kerby-xdr/1.0.1/kerby-xdr-1.0.1.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.9/jackson-databind-2.9.9.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.9/jackson-core-2.9.9.jar:/home/user/.m2/repository/org/codehaus/woodstox/stax2-api/3.1.4/stax2-api-3.1.4.jar:/home/user/.m2/repository/com/fasterxml/woodstox/woodstox-core/5.0.3/woodstox-core-5.0.3.jar:/home/user/.m2/repository/dnsjava/dnsjava/2.1.7/dnsjava-2.1.7.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs/3.2.0/hadoop-hdfs-3.2.0.jar:/home/user/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.3.24.v20180605/jetty-util-ajax-9.3.24.v20180605.jar:/home/user/.m2/repository/commons-daemon/commons-daemon/1.0.13/commons-daemon-1.0.13.jar:/home/user/.m2/repository/io/netty/netty/3.10.5.Final/netty-3.10.5.Final.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs-client/3.2.0/hadoop-hdfs-client-3.2.0.jar:/home/user/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.9/jackson-annotations-2.9.9.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-common/3.2.0/hadoop-common-3.2.0-tests.jar:/home/user/.m2/repository/org/apache/hadoop/hadoop-hdfs/3.2.0/hadoop-hdfs-3.2.0-tests.jar:/home/user/.m2/repository/info/picocli/picocli/3.9.6/picocli-3.9.6.jar:/home/user/.m2/repository/com/google/protobuf/protobuf-java/2.5.0/protobuf-java-2.5.0.jar:/home/user/.m2/repository/com/google/guava/guava/11.0.2/guava-11.0.2.jar:/home/user/.m2/repository/junit/junit/4.11/junit-4.11.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/user"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="/usr/lib/jvm/java-1.8-openjdk/jre"/>
+    <property name="java.security.krb5.conf" value="/workdir/hadoop-hdds/server-scm/target/test-classes/krb5.conf"/>
+    <property name="basedir" value="/workdir/hadoop-hdds/server-scm"/>
+    <property name="file.separator" value="/"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/workdir/hadoop-hdds/server-scm/target/surefire/surefirebooter4166085130362519572.jar"/>
+    <property name="hadoop.log.dir" value="/workdir/hadoop-hdds/server-scm/target/log"/>
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-1.8-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-1.8-openjdk/jre/lib/jfr.jar:/usr/lib/jvm/java-1.8-openjdk/jre/classes"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_212-b04"/>
+    <property name="java.net.preferIPv4Stack" value="true"/>
+    <property name="user.name" value="jenkins1000"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.security.egd" value="file:///dev/urandom"/>
+    <property name="os.version" value="3.10.0-957.12.2.el7.x86_64"/>
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-1.8-openjdk/jre/lib/endorsed"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="test.build.webapps" value=""/>
+    <property name="localRepository" value="/home/user/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://icedtea.classpath.org/bugzilla"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="require.test.libhadoop" value=""/>
+    <property name="java.version" value="1.8.0_212"/>
+    <property name="user.dir" value="/workdir/hadoop-hdds/server-scm"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="test.build.classes" value="/workdir/hadoop-hdds/server-scm/target/test-classes"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="hadoop.tmp.dir" value="/workdir/hadoop-hdds/server-scm/target/tmp"/>
+    <property name="java.library.path" value="/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/amd64:/workdir/hadoop-hdds/server-scm/target/native/target/usr/local/lib:/workdir/hadoop-hdds/server-scm/../../hadoop-common-project/hadoop-common/target/native/target/usr/local/lib:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="IcedTea"/>
+    <property name="java.vm.version" value="25.212-b04"/>
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-1.8-openjdk/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="chooseNodeWithFavoredNodes[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.398"/>
+  <testcase name="testNoInfiniteLoop[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.014"/>
+  <testcase name="chooseNodeWithExcludedNodes[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,461 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,461 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,462 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithNoExcludedNodes[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,473 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,473 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,474 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,481 WARN  net.NetworkTopology (NetworkTopologyImpl.java:chooseNodeInternal(538)) - No available node in (scope="/" excludedScope="null" excludedNodes="[d788893f-f047-4b0a-8fa9-90fa117d5ce3{ip: 29.99.67.191, host: node2, networkLocation: /rack0, certSerialId: null}, b076b432-a6fb-4cfd-bd18-2c126e1a61d1{ip: 43.178.149.204, host: node0, networkLocation: /rack0, certSerialId: null}]"  ancestorGen="1").
+2019-09-18 09:00:55,481 WARN  algorithms.SCMContainerPlacementRackAware (SCMContainerPlacementRackAware.java:chooseNode(253)) - Failed to find the datanode for container. excludedNodes:[d788893f-f047-4b0a-8fa9-90fa117d5ce3{ip: 29.99.67.191, host: node2, networkLocation: /rack0, certSerialId: null}, b076b432-a6fb-4cfd-bd18-2c126e1a61d1{ip: 43.178.149.204, host: node0, networkLocation: /rack0, certSerialId: null}], affinityNode:
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.026"/>
+  <testcase name="testNoFallback[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,512 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,512 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,513 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[0]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,516 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,517 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,517 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.006"/>
+  <testcase name="testNoInfiniteLoop[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="chooseNodeWithExcludedNodes[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,536 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,536 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,537 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,537 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithNoExcludedNodes[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,542 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,543 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,544 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,544 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,554 WARN  net.NetworkTopology (NetworkTopologyImpl.java:chooseNodeInternal(538)) - No available node in (scope="/" excludedScope="null" excludedNodes="[db771ef3-c9f8-4918-b076-ff7cc7bd02fd{ip: 229.96.66.87, host: node1, networkLocation: /rack0, certSerialId: null}, a24b7e1a-c651-4482-91f3-7ca35717fa80{ip: 113.172.125.117, host: node0, networkLocation: /rack0, certSerialId: null}]"  ancestorGen="1").
+2019-09-18 09:00:55,554 WARN  algorithms.SCMContainerPlacementRackAware (SCMContainerPlacementRackAware.java:chooseNode(253)) - Failed to find the datanode for container. excludedNodes:[db771ef3-c9f8-4918-b076-ff7cc7bd02fd{ip: 229.96.66.87, host: node1, networkLocation: /rack0, certSerialId: null}, a24b7e1a-c651-4482-91f3-7ca35717fa80{ip: 113.172.125.117, host: node0, networkLocation: /rack0, certSerialId: null}], affinityNode:
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.015"/>
+  <testcase name="testNoFallback[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,572 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,572 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,573 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,573 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[1]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,577 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,577 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,578 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,578 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.008"/>
+  <testcase name="testNoInfiniteLoop[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.008"/>
+  <testcase name="chooseNodeWithExcludedNodes[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,600 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,600 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,601 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,601 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,601 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithNoExcludedNodes[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,605 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,605 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,606 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,606 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,606 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,610 WARN  net.NetworkTopology (NetworkTopologyImpl.java:chooseNodeInternal(538)) - No available node in (scope="/" excludedScope="null" excludedNodes="[c58471aa-b645-4320-9b4f-d371a88e80e1{ip: 253.157.177.231, host: node1, networkLocation: /rack0, certSerialId: null}, d2de7d19-705d-41a5-8c00-20453ba07691{ip: 166.30.115.9, host: node4, networkLocation: /rack0, certSerialId: null}]"  ancestorGen="1").
+2019-09-18 09:00:55,611 WARN  algorithms.SCMContainerPlacementRackAware (SCMContainerPlacementRackAware.java:chooseNode(253)) - Failed to find the datanode for container. excludedNodes:[c58471aa-b645-4320-9b4f-d371a88e80e1{ip: 253.157.177.231, host: node1, networkLocation: /rack0, certSerialId: null}, d2de7d19-705d-41a5-8c00-20453ba07691{ip: 166.30.115.9, host: node4, networkLocation: /rack0, certSerialId: null}], affinityNode:
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.011"/>
+  <testcase name="testNoFallback[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,624 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,624 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,624 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,625 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,625 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[2]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,628 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,628 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,629 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,629 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,629 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithExcludedNodes[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,647 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,648 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,648 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,648 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,649 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,649 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,652 WARN  net.NetworkTopology (NetworkTopologyImpl.java:chooseNodeInternal(538)) - No available node in (scope="/rack1" excludedScope="null" excludedNodes="[54581d5a-736f-4eaa-a0c0-e32f40e22637{ip: 119.110.99.240, host: node5, networkLocation: /rack1, certSerialId: null}]"  ancestorGen="0").
+2019-09-18 09:00:55,652 WARN  algorithms.SCMContainerPlacementRackAware (SCMContainerPlacementRackAware.java:chooseNode(253)) - Failed to find the datanode for container. excludedNodes:[54581d5a-736f-4eaa-a0c0-e32f40e22637{ip: 119.110.99.240, host: node5, networkLocation: /rack1, certSerialId: null}], affinityNode:/rack1/node5
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.009"/>
+  <testcase name="testNoFallback[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,662 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,663 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,663 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,663 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,663 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,663 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[3]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,666 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,666 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,666 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,667 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,667 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,667 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testNoInfiniteLoop[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.008"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,699 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,699 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,699 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,699 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,699 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,700 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,700 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[4]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,702 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,702 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,702 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,703 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,703 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,703 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,703 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,733 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,733 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,733 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,733 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,733 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,734 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,734 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,734 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[5]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,736 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,737 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,737 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,737 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,737 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,737 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,738 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,738 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,768 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,769 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,769 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,769 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[6]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,771 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,771 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,772 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,773 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testNoInfiniteLoop[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,788 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,788 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,789 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,790 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,790 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.008"/>
+  <testcase name="testNoFallback[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,801 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,801 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,801 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,802 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,803 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[7]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,806 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,806 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,806 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,806 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,806 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,807 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,807 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,807 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,807 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,807 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,824 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,824 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,824 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,824 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,824 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+2019-09-18 09:00:55,825 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node10
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.013">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:86)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at org.junit.Assert.assertTrue(Assert.java:52)
+	at org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware.testNoFallback(TestSCMContainerPlacementRackAware.java:276)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runners.Suite.runChild(Suite.java:127)
+	at org.junit.runners.Suite.runChild(Suite.java:26)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:365)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:273)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:238)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:159)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+</failure>
+    <system-out><![CDATA[2019-09-18 09:00:55,836 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,836 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,836 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,836 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,836 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+2019-09-18 09:00:55,837 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node10
+2019-09-18 09:00:55,839 WARN  net.NetworkTopology (NetworkTopologyImpl.java:chooseNodeInternal(538)) - No available node in (scope="/rack2" excludedScope="null" excludedNodes="[944e9128-9b1b-409f-bee4-1bac7bb055e6{ip: 210.71.170.112, host: node10, networkLocation: /rack2, certSerialId: null}]"  ancestorGen="0").
+2019-09-18 09:00:55,839 WARN  algorithms.SCMContainerPlacementRackAware (SCMContainerPlacementRackAware.java:chooseNode(253)) - Failed to find the datanode for container. excludedNodes:[944e9128-9b1b-409f-bee4-1bac7bb055e6{ip: 210.71.170.112, host: node10, networkLocation: /rack2, certSerialId: null}], affinityNode:/rack2/node10
+]]></system-out>
+  </testcase>
+  <testcase name="testFallback[8]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,847 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,847 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,848 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,849 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,849 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+2019-09-18 09:00:55,849 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node10
+]]></system-out>
+  </testcase>
+  <testcase name="chooseNodeWithFavoredNodes[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.006"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testFallback[9]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithFavoredNodes[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.003"/>
+  <testcase name="testNoInfiniteLoop[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testFallback[10]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithFavoredNodes[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="chooseNodeWithExcludedNodes[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.006"/>
+  <testcase name="testNoFallback[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="testFallback[11]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithFavoredNodes[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testNoInfiniteLoop[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithExcludedNodes[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.005"/>
+  <testcase name="chooseNodeWithNoExcludedNodes[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,975 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,975 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,975 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,975 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,975 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node10
+2019-09-18 09:00:55,976 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node11
+2019-09-18 09:00:55,977 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node12
+2019-09-18 09:00:55,977 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node13
+2019-09-18 09:00:55,977 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node14
+]]></system-out>
+  </testcase>
+  <testcase name="testDatanodeWithDefaultNetworkLocation[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.007"/>
+  <testcase name="testNoFallback[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0.004"/>
+  <testcase name="testFallback[12]" classname="org.apache.hadoop.hdds.scm.container.placement.algorithms.TestSCMContainerPlacementRackAware" time="0">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;"/>
+    <system-out><![CDATA[2019-09-18 09:00:55,992 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node0
+2019-09-18 09:00:55,992 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node1
+2019-09-18 09:00:55,992 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node2
+2019-09-18 09:00:55,992 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node3
+2019-09-18 09:00:55,992 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack0/node4
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node5
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node6
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node7
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node8
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack1/node9
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node10
+2019-09-18 09:00:55,993 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node11
+2019-09-18 09:00:55,994 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node12
+2019-09-18 09:00:55,994 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node13
+2019-09-18 09:00:55,994 INFO  net.NetworkTopology (NetworkTopologyImpl.java:add(111)) - Added a new node: /rack2/node14
+]]></system-out>
+  </testcase>
+</testsuite>
