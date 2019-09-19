@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.hadoop.fs.ozone.contract.ITestOzoneContractOpen
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 401.191 s <<< FAILURE! - in org.apache.hadoop.fs.ozone.contract.ITestOzoneContractOpen
+testOpenFileTwice(org.apache.hadoop.fs.ozone.contract.ITestOzoneContractOpen)  Time elapsed: 180.033 s  <<< ERROR!
+java.lang.Exception: test timed out after 180000 milliseconds
+	at sun.misc.Unsafe.park(Native Method)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	at java.util.concurrent.CompletableFuture$Signaller.block(CompletableFuture.java:1693)
+	at java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3323)
+	at java.util.concurrent.CompletableFuture.waitingGet(CompletableFuture.java:1729)
+	at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1895)
+	at org.apache.hadoop.hdds.scm.storage.BlockOutputStream.waitOnFlushFutures(BlockOutputStream.java:515)
+	at org.apache.hadoop.hdds.scm.storage.BlockOutputStream.handleFlush(BlockOutputStream.java:478)
+	at org.apache.hadoop.hdds.scm.storage.BlockOutputStream.close(BlockOutputStream.java:493)
+	at org.apache.hadoop.ozone.client.io.BlockOutputStreamEntry.close(BlockOutputStreamEntry.java:143)
+	at org.apache.hadoop.ozone.client.io.KeyOutputStream.handleFlushOrClose(KeyOutputStream.java:435)
+	at org.apache.hadoop.ozone.client.io.KeyOutputStream.close(KeyOutputStream.java:473)
+	at org.apache.hadoop.fs.ozone.OzoneFSOutputStream.close(OzoneFSOutputStream.java:56)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.close(FSDataOutputStream.java:72)
+	at org.apache.hadoop.fs.FSDataOutputStream.close(FSDataOutputStream.java:101)
+	at org.apache.hadoop.fs.contract.ContractTestUtils.createFile(ContractTestUtils.java:638)
+	at org.apache.hadoop.fs.contract.AbstractContractOpenTest.testOpenFileTwice(AbstractContractOpenTest.java:125)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.internal.runners.statements.FailOnTimeout$StatementThread.run(FailOnTimeout.java:74)
+
