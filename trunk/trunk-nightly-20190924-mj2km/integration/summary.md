@@ -1,0 +1,5 @@
+# Failing tests: 
+
+ * [org.apache.hadoop.fs.ozone.TestOzoneFsHAURLs](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/ozonefs/org.apache.hadoop.fs.ozone.TestOzoneFsHAURLs.txt) ([output](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/ozonefs/org.apache.hadoop.fs.ozone.TestOzoneFsHAURLs-output.txt/))
+ * [org.apache.hadoop.ozone.client.rpc.TestBlockOutputStreamWithFailures](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestBlockOutputStreamWithFailures.txt) ([output](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/integration-test/org.apache.hadoop.ozone.client.rpc.TestBlockOutputStreamWithFailures-output.txt/))
+ * [org.apache.hadoop.ozone.scm.node.TestQueryNode](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/integration-test/org.apache.hadoop.ozone.scm.node.TestQueryNode.txt) ([output](/tmp/log/trunk/trunk-nightly-20190924-mj2km/integration/workdir/hadoop-ozone/integration-test/org.apache.hadoop.ozone.scm.node.TestQueryNode-output.txt/))
